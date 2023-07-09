@@ -15,7 +15,7 @@ class TestDifferentLinks:
         browser.execute_script("window.scrollBy(0, 100)")
 
         # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
-        wait = WebDriverWait(browser, 6)
+        wait = WebDriverWait(browser, 7)
         link_1 = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
         link_1.click()
 

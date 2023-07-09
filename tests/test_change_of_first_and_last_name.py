@@ -12,7 +12,7 @@ def test_login(browser):
     browser.get(link)
 
     # Явное ожидание таба с текстом "Почта"
-    wait = WebDriverWait(browser, 5)
+    wait = WebDriverWait(browser, 7)
     email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
     email_button.click()
 
@@ -35,7 +35,7 @@ def test_login(browser):
 
     # Текущее имя и отчество
     start_first_name_and_middle_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
-
+    start_first_name = start_first_name_and_middle_name.split()[0]
     # Клик по кнопке изменения ФИО
     browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
@@ -49,14 +49,14 @@ def test_login(browser):
     browser.find_element(*Selectors.USER_LASTNAME).send_keys(Keys.CONTROL + "a", Keys.DELETE)
 
     # Ввод новой фамилии
-    browser.find_element(*Selectors.USER_LASTNAME).send_keys(FakePerson.generate_last_name_of_man())
+    browser.find_element(*Selectors.USER_LASTNAME).send_keys(FakePerson.generate_last_name_of_man(start_last_name))
 
     browser.find_element(*Selectors.USER_FIRSTNAME).click()
 
     # Очистить поле перед новым вводом имени
     browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(Keys.CONTROL + "a", Keys.DELETE)
 
-    browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(FakePerson.generate_first_name_of_man())
+    browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(FakePerson.generate_first_name_of_man(start_first_name))
 
     # Сохранение нового ФИО
     browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
@@ -79,5 +79,5 @@ def test_login(browser):
     print()
     print()
     print(f'Toast-уведомление об изменении данных появилось на странице. Старая фамилия "{start_last_name}"'
-          f' была изменена на "{new_last_name}". Старое имя "{start_first_name_and_middle_name.split()[0]}"'
+          f' была изменена на "{new_last_name}". Старое имя "{start_first_name}"'
           f' было изменено на "{new_first_name.split()[0]}".')

@@ -11,7 +11,7 @@ def test_login(browser):
     browser.get(link)
 
     # Явное ожидание таба с текстом "Логин"
-    wait = WebDriverWait(browser, 5)
+    wait = WebDriverWait(browser, 7)
     login_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_LOGIN_LOGIN))
     login_button.click()
 

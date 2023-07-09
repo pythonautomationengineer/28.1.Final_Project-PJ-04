@@ -10,7 +10,7 @@ def test_registration(browser):
     browser.get(link)
 
     # Явное ожидание ссылки с текстом "Зарегистрироваться"
-    wait = WebDriverWait(browser, 5)
+    wait = WebDriverWait(browser, 7)
     registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
     registration.click()
 

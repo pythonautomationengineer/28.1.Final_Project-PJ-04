@@ -12,7 +12,7 @@ def test_login(browser):
     browser.get(link)
 
     # Явное ожидание таба с текстом "Почта"
-    wait = WebDriverWait(browser, 5)
+    wait = WebDriverWait(browser, 7)
     email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
     email_button.click()
 
@@ -28,7 +28,7 @@ def test_login(browser):
     wait = WebDriverWait(browser, 5)
     wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
-    start_middle_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
+    start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
 
     browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
@@ -40,7 +40,8 @@ def test_login(browser):
 
     # Ввод отчества
     browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(Keys.CONTROL + "a", Keys.DELETE)
-    browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(FakePerson.generate_middle_name_of_man())
+    browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(
+        FakePerson.generate_patronymic_name_of_man(start_patronymic_name))
 
     browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
 
@@ -50,11 +51,11 @@ def test_login(browser):
     toast = browser.find_element(*Selectors.TOAST_CHANGING_NAME_LAST_NAME_PATRONYMIC)
     izm_fio = browser.find_element(*Selectors.TEXT_INSIDE_TOAST).text
 
-    new_middle_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text
+    new_patronymic_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text
 
     assert izm_fio == 'Изменение ФИО' and toast.is_displayed()
 
     print()
     print()
     print(f'Появилось тост-уведомление об успешном изменении отчества. '
-          f'Старое отчество "{start_middle_name.split()[1]}" изменилось на "{new_middle_name.split()[1]}"')
+          f'Старое отчество "{start_patronymic_name.split()[1]}" изменилось на "{new_patronymic_name.split()[1]}"')

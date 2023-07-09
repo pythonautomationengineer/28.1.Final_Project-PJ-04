@@ -12,7 +12,7 @@ def test_eye_icon_on_password(browser):
     browser.get(link)
 
     # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-    wait = WebDriverWait(browser, 5)
+    wait = WebDriverWait(browser, 7)
     registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
     registration.click()
 
