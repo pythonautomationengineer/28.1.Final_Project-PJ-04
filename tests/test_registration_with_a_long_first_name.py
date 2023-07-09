@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
 from generators.very_long_first_name import very_long_first_name_generation
-from settings import link, password, additional_number
+from settings import link, password, unused_phone
 
 
 def test_valid_registration(browser):
@@ -24,10 +24,10 @@ def test_valid_registration(browser):
     browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(very_long_first_name_generation())
 
     # Фамилия
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man())
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
 
     # Номер
-    browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(additional_number)
+    browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
     # Пароли
     browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)

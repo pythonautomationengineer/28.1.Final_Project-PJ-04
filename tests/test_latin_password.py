@@ -21,8 +21,8 @@ def test_latin_password(browser):
     WebDriverWait(browser, 5)
     browser.find_element(*Selectors.USER_CONCLUSION)
 
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man())
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man())
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
 
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 

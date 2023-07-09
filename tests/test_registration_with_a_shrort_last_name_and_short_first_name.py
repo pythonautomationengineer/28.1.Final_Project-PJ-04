@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
 from generators.one_symbol_generator import one_symbol_generator
-from settings import link, password, additional_number
+from settings import link, password, unused_phone
 
 
 def test_valid_registration(browser):
@@ -29,7 +29,7 @@ def test_valid_registration(browser):
     browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(last_name)
 
     # Телефон
-    browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(additional_number)
+    browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
     # Пароли
     browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
