@@ -15,6 +15,7 @@ def test_big_letter(browser):
     # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
     wait = WebDriverWait(browser, 7)
     registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+
     registration.click()
 
     # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
