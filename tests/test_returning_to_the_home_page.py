@@ -33,7 +33,7 @@ def test_return_to_home(browser):
     browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
 
     # Кнопка "Зарегистрироваться"
-    browser.find_element(By.CSS_SELECTOR, '#page-right > div > div > div > form > button').click()
+    browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
     # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
 
