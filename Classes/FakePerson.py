@@ -59,7 +59,3 @@ class FakePerson:
             return operators[random.randint(0, 3)] + f'{phone[3:]}'
         else:
             return FakePerson.generate_fake_phone()
-
-
-print(FakePerson.generate_fake_phone())
-
