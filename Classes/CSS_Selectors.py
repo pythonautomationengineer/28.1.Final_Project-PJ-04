@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 class Selectors:
     """Селекторы для тестов"""
 
+    CAPTCHA_TEXT = (By.CSS_SELECTOR, '#page-right > div > div > div > form > div.rt-captcha.login-form__captcha > '
+                                     'div.rt-input-container.rt-captcha__input > span')
+
     TAB_PHONE_BUTTON = (By.ID, 't-btn-tab-phone')
     USERNAME_INPUT = (By.ID, 'username')
     PASSWORD_INPUT = (By.ID, 'password')
