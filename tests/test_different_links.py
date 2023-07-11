@@ -20,7 +20,7 @@ def test_different_links(browser):
 
     handles = browser.window_handles
 
-    # переключение на новую вкладку
+    # Переключение на новую вкладку
     new_tab_handle = handles[-1]
     browser.switch_to.window(new_tab_handle)
 
@@ -28,6 +28,7 @@ def test_different_links(browser):
     corrent_url = browser.current_url
 
     browser.implicitly_wait(3)
+
     # Заголовок статьи политики конфиденциальности
     find_text_h1 = browser.find_element(*Selectors.HEADING_STATE_POLITICS_PRIVACY_POLICY).text
 
@@ -51,6 +52,7 @@ def test_different_links(browser):
     corrent_url_2 = browser.current_url
 
     browser.implicitly_wait(3)
+
     # Заголовок статьи пользовательского соглашения
     find_text_h1_2 = browser.find_element(*Selectors.HEADING_ARTICLES_USER_REFERENCES).text
 
