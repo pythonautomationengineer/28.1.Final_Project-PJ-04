@@ -8,7 +8,7 @@ fake = Faker('ru_RU')
 # которое я не учел, но тесты из-за этого не упадут, поэтому это не страшно.
 
 class FakePerson:
-    """Генерация необходимых тестовых данных: имени, фамилии, отчества и телефона с помощью рекурсии 💖"""
+    """Генерация необходимых тестовых данных: имени, фамилии, отчества и телефона с помощью рекурсии"""
     max_length_last_name = 10  # задает максимальную длину фамилии
     max_length_first_name = 10  # задает максимальную длину имени
     max_length_patronymic_name = 12  # задает максимальную длину отчества
@@ -19,8 +19,8 @@ class FakePerson:
         """Генерация мужской фамилии"""
         name = fake.name()
         list_name = name.split()
-        if old_last_name != list_name[0] and 4 < len(list_name[0]) < FakePerson.max_length_last_name \
-                and list_name[0][-2:] in {'ов', 'ев', 'ёв', 'ин'}:
+        if (old_last_name != list_name[0]) and (4 < len(list_name[0]) < FakePerson.max_length_last_name) \
+                and list_name[0][-2:] in {'ов', 'ев', 'ёв', 'ин'} and len(list_name[0]) != len(old_last_name):
             return list_name[0]
         else:
             return FakePerson.generate_last_name_of_man(old_last_name)
@@ -30,10 +30,10 @@ class FakePerson:
         """Генерация мужского имени"""
         name = fake.name()
         list_name = name.split()
-        if old_first_name != list_name[1] and 4 < len(list_name[1]) < FakePerson.max_length_first_name \
+        if (old_first_name != list_name[1]) and (4 < len(list_name[1]) < FakePerson.max_length_first_name) \
                 and list_name[1][-2:] not in {'ов', 'ев', 'ёв', 'ин', 'ич', 'на', 'ва', 'ия', 'са', 'ра', 'та', 'вь',
                                               'да', 'ья', 'га', 'ла', 'оя', 'фа', 'ея', 'ор', 'ка', 'ца', 'ия', 'ль',
-                                              'ма', 'ея', 'а', 'вь', 'ь'}:
+                                              'ма', 'ея', 'а', 'вь', 'ь'} and len(list_name[1]) != len(old_first_name):
             return list_name[1]
         else:
             return FakePerson.generate_first_name_of_man(old_first_name)
@@ -43,8 +43,8 @@ class FakePerson:
         """Генерация мужского имени"""
         name = fake.name()
         list_name = name.split()
-        if old_patronymic_name != list_name[2] and 4 < len(list_name[2]) < FakePerson.max_length_patronymic_name and \
-                list_name[2][-2:] in {'ич'}:
+        if (old_patronymic_name != list_name[2]) and (4 < len(list_name[2]) < FakePerson.max_length_patronymic_name) \
+                and list_name[2][-2:] in {'ич'} and len(list_name[2]) != len(old_patronymic_name):
             return list_name[2]
         else:
             return FakePerson.generate_patronymic_name_of_man(old_patronymic_name)
