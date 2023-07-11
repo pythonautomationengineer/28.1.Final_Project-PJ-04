@@ -62,3 +62,4 @@ class FakePerson:
 
 
 print(FakePerson.generate_fake_phone())
+
