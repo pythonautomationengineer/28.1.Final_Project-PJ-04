@@ -1,10 +1,9 @@
 from selenium.common import NoSuchElementException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from settings import link, phone_valid, password
 from Classes.CSS_Selectors import Selectors
+from settings import link, phone_valid, password
 
 
 def test_phone_tabs(browser):
@@ -31,8 +30,7 @@ def test_phone_tabs(browser):
     login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
     login_button.click()
 
-    assert browser.find_element(By.CSS_SELECTOR, '#app > main > div > div.home > div.base-card.home__info-card > '
-                                                 'h3:nth-child(2)').text == 'Учетные данные'
+    assert browser.find_element(*Selectors.CREDENTIALS).text == 'Учетные данные'
     print()
     print()
     print('Вход в кабинет выполнен, значит автоматическая смена таба произошла')
