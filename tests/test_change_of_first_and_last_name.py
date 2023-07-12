@@ -44,6 +44,7 @@ def test_login(browser):
     # Текущее имя и отчество
     start_first_name_and_middle_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
     start_first_name = start_first_name_and_middle_name.split()[0]
+
     # Клик по кнопке изменения ФИО
     browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
