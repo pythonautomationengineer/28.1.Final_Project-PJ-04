@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
 from Classes.Data_for_Assert import DataForAssert
+from Classes.try_except_exception import handle_captcha
 from settings import link, email_valid, password
 
 
@@ -19,11 +20,8 @@ def test_email_tabs(browser):
     username_input = browser.find_element(*Selectors.USERNAME_INPUT)
     password_input = browser.find_element(*Selectors.PASSWORD_INPUT)
 
-    try:
-        captcha = browser.find_element(*Selectors.CAPTCHA_TEXT)
-        assert not captcha.is_displayed(), DataForAssert.CAPTCHA_INFO
-    except NoSuchElementException:
-        pass
+    # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без ошибок
+    handle_captcha(browser)
 
     username_input.send_keys(email_valid)
 
