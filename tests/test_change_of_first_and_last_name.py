@@ -82,7 +82,7 @@ def test_login(browser):
     # Новая фамилия
     new_last_name = browser.find_element(*Selectors.NEW_LAST_NAME).text
 
-    assert izm_fio == 'Изменение ФИО' and toast.is_displayed()
+    assert izm_fio == DataForAssert.TOAST_TEXT and toast.is_displayed()
 
     print()
     print()
