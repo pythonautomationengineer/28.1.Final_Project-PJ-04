@@ -62,7 +62,7 @@ def test_login(browser):
 
     new_patronymic_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text
 
-    assert izm_fio == 'Изменение ФИО' and toast.is_displayed()
+    assert izm_fio == DataForAssert.TOAST_TEXT and toast.is_displayed()
 
     print()
     print()
