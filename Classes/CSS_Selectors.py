@@ -137,3 +137,6 @@ class Selectors:
 
     FIRST_NAME_ERROR_TEXT = (By.CSS_SELECTOR, '#page-right > div > div > div > form > '
                                               'div.name-container > div:nth-child(1) > span')
+
+    CREDENTIALS = (By.CSS_SELECTOR, '#app > main > div > div.home > div.base-card.home__info-card > '
+                                    'h3:nth-child(2)')
