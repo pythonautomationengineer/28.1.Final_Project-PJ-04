@@ -32,8 +32,8 @@ def test_login(browser):
     login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
     login_button.click()
 
-    assert browser.find_element(*Selectors.CREDENTIALS).text == 'Учетные данные'
+    assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
 
     print()
     print()
-    print('Вход успешно выполнен')
+    print(f'Вход успешно выполнен. Текст "{DataForAssert.CREDENTIALS}" найден на странице.')
