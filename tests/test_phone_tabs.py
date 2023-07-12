@@ -31,7 +31,8 @@ def test_phone_tabs(browser):
     login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
     login_button.click()
 
-    assert browser.find_element(*Selectors.CREDENTIALS).text == 'Учетные данные'
+    assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
     print()
     print()
-    print('Вход в кабинет выполнен, значит автоматическая смена таба произошла')
+    print(f'Вход в кабинет выполнен. Текст "{DataForAssert.CREDENTIALS}" найден на странице, значит автоматическая '
+          f'смена таба произошла.')
