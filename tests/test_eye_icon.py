@@ -1,9 +1,8 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from settings import link, password
 from Classes.CSS_Selectors import Selectors
+from settings import link, password
 
 
 def test_eye_icon_on_password(browser):
@@ -24,10 +23,8 @@ def test_eye_icon_on_password(browser):
 
     attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).get_attribute("type")
 
-    browser.find_element(By.CSS_SELECTOR,
-                         '#page-right > div > div > div > form > div.new-password-container > '
-                         'div.rt-input-container.new-password-container__password > div > div.rt-input__action > '
-                         'svg').click()
+    # eye_icon
+    browser.find_element(*Selectors.EYE_ICON_PASSWORD).click()
 
     attr_2 = browser.find_element(*Selectors.REGISTRATION_PASSWORD).get_attribute("type")
 
