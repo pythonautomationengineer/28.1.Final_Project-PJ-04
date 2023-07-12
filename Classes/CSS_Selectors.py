@@ -142,6 +142,6 @@ class Selectors:
                                     'h3:nth-child(2)')
 
     EYE_ICON_PASSWORD = (By.CSS_SELECTOR,
-                '#page-right > div > div > div > form > div.new-password-container > '
-                'div.rt-input-container.new-password-container__password > div > div.rt-input__action > '
-                'svg')
+                         '#page-right > div > div > div > form > div.new-password-container > '
+                         'div.rt-input-container.new-password-container__password > div > div.rt-input__action > '
+                         'svg')
