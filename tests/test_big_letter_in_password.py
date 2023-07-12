@@ -5,6 +5,7 @@ from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
 from generators.small_letter_password_generator import small_letter_password_generator
 from settings import link, unused_phone
+from Classes.Data_for_Assert import DataForAssert
 
 
 def test_big_letter(browser):
@@ -23,10 +24,10 @@ def test_big_letter(browser):
     browser.find_element(*Selectors.USER_CONCLUSION)
 
     # Имя
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
 
     # Фамилия
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
 
     # Телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
@@ -45,8 +46,8 @@ def test_big_letter(browser):
     WebDriverWait(browser, 2)
     text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
-    assert text_information.text == 'Пароль должен содержать хотя бы одну заглавную букву' \
-           and text_information_2.text == 'Пароль должен содержать хотя бы одну заглавную букву'
+    assert text_information.text == DataForAssert.BIG_LETTER_TEXT_IN_PASSWORD \
+           and text_information_2.text == DataForAssert.BIG_LETTER_TEXT_IN_PASSWORD
 
     print()
     print()
