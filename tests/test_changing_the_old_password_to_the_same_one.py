@@ -6,7 +6,6 @@ from Classes.CSS_Selectors import Selectors
 from Classes.Data_for_Assert import DataForAssert
 from settings import link, email_valid, password
 
-
 def test_login(browser):
     """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
     browser.get(link)
@@ -62,7 +61,7 @@ def test_login(browser):
 
     find_text = browser.find_element(*Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT).text
 
-    assert find_text == 'Этот пароль уже использовался, укажите другой пароль'
+    assert find_text == DataForAssert.PREVIOUSLY_USED_PASSWORD
 
     print()
     print()
