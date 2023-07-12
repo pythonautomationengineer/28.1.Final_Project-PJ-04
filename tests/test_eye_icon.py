@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
 from settings import link, password
+from Classes.Data_for_Assert import DataForAssert
 
 
 def test_eye_icon_on_password(browser):
@@ -28,9 +29,9 @@ def test_eye_icon_on_password(browser):
 
     attr_2 = browser.find_element(*Selectors.REGISTRATION_PASSWORD).get_attribute("type")
 
-    assert attr == 'password' and attr_2 == 'text'
+    assert attr == DataForAssert.PASSWORD_ICON_ATTRIBUTE_1 and attr_2 == DataForAssert.PASSWORD_ICON_ATTRIBUTE_2
 
     print()
     print()
-    print(f"Поле пароля по умолчанию скрывает ввод символами '*',"
+    print(f"Поле пароля по умолчанию скрывает ввод символами '*', "
           f"а при клике на иконку 'глаз' символы пароля видны пользователю")
