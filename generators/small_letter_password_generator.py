@@ -7,7 +7,7 @@ def small_letter_password_generator():
     first_symbol = ''
     for i in set(english_alphabet):
         first_symbol += one_sp_char + one_numb + i
-        if len(first_symbol) > 7:
+        if len(first_symbol) > 7:  # Итого 8 символов
             break
 
     return first_symbol
