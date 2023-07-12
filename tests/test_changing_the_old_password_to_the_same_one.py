@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
+from Classes.Data_for_Assert import DataForAssert
 from settings import link, email_valid, password
 
 
@@ -17,7 +18,7 @@ def test_login(browser):
 
     try:
         captcha = browser.find_element(*Selectors.CAPTCHA_TEXT)
-        assert not captcha.is_displayed(), 'Каптча на сайте! Придется разок войти руками в ЛК, а после запустить тест'
+        assert not captcha.is_displayed(), DataForAssert.CAPTCHA_INFO
     except NoSuchElementException:
         pass
 

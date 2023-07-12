@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
 from settings import link, email_valid, password
+from Classes.Data_for_Assert import DataForAssert
 
 
 def test_login(browser):
@@ -19,7 +20,7 @@ def test_login(browser):
 
     try:
         captcha = browser.find_element(*Selectors.CAPTCHA_TEXT)
-        assert not captcha.is_displayed(), 'Каптча на сайте! Придется разок войти руками в ЛК, а после запустить тест'
+        assert not captcha.is_displayed(), DataForAssert.CAPTCHA_INFO
     except NoSuchElementException:
         pass
 
