@@ -20,10 +20,10 @@ def test_invalid_registration(browser):
     browser.find_element(*Selectors.USER_CONCLUSION)
 
     # Имя
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(""))
 
     # Фамилия
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(""))
 
     # email или телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
