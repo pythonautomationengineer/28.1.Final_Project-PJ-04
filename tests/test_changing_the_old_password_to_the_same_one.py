@@ -6,6 +6,7 @@ from Classes.CSS_Selectors import Selectors
 from Classes.Data_for_Assert import DataForAssert
 from settings import link, email_valid, password
 
+
 def test_login(browser):
     """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
     browser.get(link)
