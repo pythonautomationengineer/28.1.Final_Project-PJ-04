@@ -7,7 +7,7 @@ def not_latin_password_generator():
     one_special_characters = set(special_characters).pop().upper()
     for i in set(russian_alphabet):
         first_symbol += one_numbers + one_special_characters + i
-        if len(first_symbol) > 7:
+        if len(first_symbol) > 7:  # Итого 8 символов
             break
 
     return first_symbol
