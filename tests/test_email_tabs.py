@@ -1,5 +1,4 @@
 from selenium.common import NoSuchElementException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -36,8 +35,9 @@ def test_email_tabs(browser):
 
     # Явное ожидание сообщения с текстом ошибки
     wait = WebDriverWait(browser, 3)
-    error_message = wait.until(EC.visibility_of_element_located((By.ID, 'form-error-message')))
-    assert error_message.text == 'Неверный логин или пароль' or error_message.text == 'Неверно введен текст с картинки'
+    error_message = wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
+
+    assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
     print()
     print()
     print(f'Вход в кабинет не выполнен, так как на странице появился текст ошибки "{error_message.text}". '
