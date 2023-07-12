@@ -5,6 +5,7 @@ from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
 from generators.valid_psswrds_but_dont_match_generator import p_password_generator, p2_password_generator
 from settings import link, unused_phone
+from Classes.Data_for_Assert import DataForAssert
 
 
 def test_pass_dont_match(browser):
@@ -21,8 +22,8 @@ def test_pass_dont_match(browser):
     WebDriverWait(browser, 5)
     browser.find_element(*Selectors.USER_CONCLUSION)
 
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(""))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(""))
 
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
@@ -37,7 +38,7 @@ def test_pass_dont_match(browser):
     WebDriverWait(browser, 2)
     text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
-    assert text_information_2.text == 'Пароли не совпадают'
+    assert text_information_2.text == DataForAssert.PASSWORDS_DO_NOT_MATCH
 
     print()
     print()
