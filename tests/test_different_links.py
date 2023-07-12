@@ -10,7 +10,7 @@ def test_different_links(browser):
     при переходе со страницы авторизации и отличие названий их вкладок в браузере"""
     browser.get(link)
 
-    # Скролл вниз на 100 пикселей на всякий случай
+    # Скролл вниз на 100 пикселей
     browser.execute_script("window.scrollBy(0, 100)")
 
     # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
@@ -25,7 +25,7 @@ def test_different_links(browser):
     browser.switch_to.window(new_tab_handle)
 
     title_text = browser.title
-    corrent_url = browser.current_url
+    current_url = browser.current_url
 
     browser.implicitly_wait(3)
 
@@ -34,7 +34,7 @@ def test_different_links(browser):
 
     browser.get(link)
 
-    # Скролл вниз на 100 пикселей на всякий случай
+    # Скролл вниз на 100 пикселей
     browser.execute_script("window.scrollBy(0, 100)")
 
     # Явное ожидание ссылки с текстом "Пользовательским соглашением"
@@ -49,14 +49,14 @@ def test_different_links(browser):
     browser.switch_to.window(new_tab_handle)
 
     title_text_2 = browser.title
-    corrent_url_2 = browser.current_url
+    current_url_2 = browser.current_url
 
     browser.implicitly_wait(3)
 
     # Заголовок статьи пользовательского соглашения
     find_text_h1_2 = browser.find_element(*Selectors.HEADING_ARTICLES_USER_REFERENCES).text
 
-    assert title_text == title_text_2 and corrent_url == corrent_url_2 and find_text_h1 == find_text_h1_2
+    assert title_text == title_text_2 and current_url == current_url_2 and find_text_h1 == find_text_h1_2
 
     print()
     print()
