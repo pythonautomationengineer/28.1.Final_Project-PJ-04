@@ -37,7 +37,7 @@ def test_login(browser):
     wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
     error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
 
-    assert error_message == 'Неверный логин или пароль'
+    assert error_message == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
 
     print()
     print()
