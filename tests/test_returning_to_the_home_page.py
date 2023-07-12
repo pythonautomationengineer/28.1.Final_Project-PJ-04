@@ -1,10 +1,9 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from settings import link, email_valid, password
-from Classes.FakePerson import FakePerson
 from Classes.CSS_Selectors import Selectors
+from Classes.FakePerson import FakePerson
+from settings import link, email_valid, password
 
 
 def test_return_to_home(browser):
@@ -21,10 +20,10 @@ def test_return_to_home(browser):
     browser.find_element(*Selectors.USER_CONCLUSION)
 
     # Имя
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
 
     # Фамилия
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
 
     # email
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
