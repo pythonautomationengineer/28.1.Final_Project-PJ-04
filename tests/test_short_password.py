@@ -5,6 +5,7 @@ from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
 from generators.short_password_generator import short_password_generator
 from settings import link, unused_phone
+from Classes.Data_for_Assert import DataForAssert
 
 
 def test_short_password(browser):
@@ -22,10 +23,10 @@ def test_short_password(browser):
     browser.find_element(*Selectors.USER_CONCLUSION)
 
     # Имя
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(None))
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
 
     # Фамилия
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(None))
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
 
     # Телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
@@ -47,8 +48,8 @@ def test_short_password(browser):
     WebDriverWait(browser, 3)
     text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
-    assert text_information.text == 'Длина пароля должна быть не менее 8 символов' \
-           and text_information_2.text == 'Длина пароля должна быть не менее 8 символов'
+    assert text_information.text == DataForAssert.VERY_SHORT_PASSWORD \
+           and text_information_2.text == DataForAssert.VERY_SHORT_PASSWORD
 
     print()
     print()
