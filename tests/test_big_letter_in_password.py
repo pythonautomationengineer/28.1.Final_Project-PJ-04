@@ -3,9 +3,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
-from generators.small_letter_password_generator import small_letter_password_generator
 from settings import link, unused_phone
 from Classes.Data_for_Assert import DataForAssert
+from generators.Characters_generator import CharactersGenerator
 
 
 def test_big_letter(browser):
@@ -32,8 +32,11 @@ def test_big_letter(browser):
     # Телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(small_letter_password_generator())
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(small_letter_password_generator())
+    # Пароли
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(
+        CharactersGenerator.small_letter_password_generator())
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
+        CharactersGenerator.small_letter_password_generator())
 
     # Кнопка "Зарегистрироваться"
     browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
