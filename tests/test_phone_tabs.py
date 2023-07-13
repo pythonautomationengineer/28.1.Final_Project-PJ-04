@@ -1,9 +1,9 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.Data_for_Assert import DataForAssert
-from Classes.try_except_exception import handle_captcha
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Data_for_Assert import DataForAssert
+from Сlasses.try_except_exception import handle_captcha
 from settings import link, phone_valid, password
 
 
@@ -19,11 +19,12 @@ def test_phone_tabs(browser):
     # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без ошибок
     handle_captcha(browser)
 
+    # Телефон и пароль
     browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
     browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
 
-    login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-    login_button.click()
+    # Кнопка "Войти"
+    browser.find_element(*Selectors.LOGIN_BUTTON).click()
 
     assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
     print()
