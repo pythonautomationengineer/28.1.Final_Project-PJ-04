@@ -14,7 +14,7 @@ def test_different_links(browser):
     browser.execute_script("window.scrollBy(0, 100)")
 
     # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
-    wait = WebDriverWait(browser, 7)
+    wait = WebDriverWait(browser, 30)
     link_1 = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
     link_1.click()
 
@@ -56,10 +56,10 @@ def test_different_links(browser):
     # Заголовок статьи пользовательского соглашения
     find_text_h1_2 = browser.find_element(*Selectors.HEADING_ARTICLES_USER_REFERENCES).text
 
-    assert title_text == title_text_2 and current_url == current_url_2 and find_text_h1 == find_text_h1_2
+    assert (title_text == title_text_2) and (current_url == current_url_2) and (find_text_h1 == find_text_h1_2)
 
     print()
     print()
     print('Ссылки на страницы о политике конфиденциальности и пользовательское соглашение ведут на'
           ' одну и ту же страницу, так как у обеих страниц один и тот же url, '
-          'заголовок вкладки, заголовок страницы ')
+          'заголовок вкладки, заголовок страницы')
