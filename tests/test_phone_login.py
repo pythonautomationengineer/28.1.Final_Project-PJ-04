@@ -1,4 +1,3 @@
-from selenium.common import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -20,11 +19,9 @@ def test_login(browser):
     # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без ошибок
     handle_captcha(browser)
 
-    username_input = browser.find_element(*Selectors.USERNAME_INPUT)
-    password_input = browser.find_element(*Selectors.PASSWORD_INPUT)
-
-    username_input.send_keys(phone_valid)
-    password_input.send_keys(password)
+    # Телефон и пароль
+    browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
+    browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
 
     # Кнопка "Войти"
     login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
