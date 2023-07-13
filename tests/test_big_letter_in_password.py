@@ -1,11 +1,11 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.FakePerson import FakePerson
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.FakePerson import FakePerson
 from settings import link, unused_phone
-from Classes.Data_for_Assert import DataForAssert
-from generators.Characters_generator import CharactersGenerator
+from Сlasses.Data_for_Assert import DataForAssert
+from Сlasses.Characters_generator import CharactersGenerator
 
 
 def test_big_letter(browser):

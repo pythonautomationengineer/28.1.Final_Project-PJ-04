@@ -1,7 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
+from Сlasses.CSS_Selectors import Selectors
 from settings import link
 
 

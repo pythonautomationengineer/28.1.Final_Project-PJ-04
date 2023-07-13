@@ -1,11 +1,10 @@
-from selenium.common import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.Data_for_Assert import DataForAssert
-from Classes.try_except_exception import handle_captcha
 from settings import link, email_valid, password
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Data_for_Assert import DataForAssert
+from Сlasses.try_except_exception import handle_captcha
 
 
 def test_email_tabs(browser):

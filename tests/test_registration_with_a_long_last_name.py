@@ -1,9 +1,9 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.FakePerson import FakePerson
-from generators.Characters_generator import CharactersGenerator
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.FakePerson import FakePerson
+from Сlasses.Characters_generator import CharactersGenerator
 from settings import link, password, unused_phone
 
 

@@ -1,6 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
-from Classes.CSS_Selectors import Selectors
-from Classes.Data_for_Assert import DataForAssert
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Data_for_Assert import DataForAssert
 
 
 def handle_captcha(browser):

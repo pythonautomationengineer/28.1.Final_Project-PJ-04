@@ -1,9 +1,9 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
+from Сlasses.CSS_Selectors import Selectors
 from settings import link, password
-from Classes.Data_for_Assert import DataForAssert
+from Сlasses.Data_for_Assert import DataForAssert
 
 
 def test_eye_icon_on_password(browser):
