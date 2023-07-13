@@ -2,9 +2,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
-from generators.one_symbol_generator import one_symbol_generator
-from settings import link, password, unused_phone
 from generators.Characters_generator import CharactersGenerator
+from settings import link, password, unused_phone
 
 
 def test_valid_registration(browser):
@@ -20,10 +19,8 @@ def test_valid_registration(browser):
     WebDriverWait(browser, 5)
     browser.find_element(*Selectors.USER_CONCLUSION)
 
-    first_name = one_symbol_generator()
-
     # Имя
-    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(first_name)
+    browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
 
     # Фамилия
     browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
