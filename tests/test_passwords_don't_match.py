@@ -2,10 +2,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
-from Classes.FakePerson import FakePerson
-from generators.valid_psswrds_but_dont_match_generator import p_password_generator, p2_password_generator
-from settings import link, unused_phone
 from Classes.Data_for_Assert import DataForAssert
+from Classes.FakePerson import FakePerson
+from generators.Characters_generator import CharactersGenerator
+from settings import link, unused_phone
 
 
 def test_pass_dont_match(browser):
@@ -22,13 +22,17 @@ def test_pass_dont_match(browser):
     WebDriverWait(browser, 5)
     browser.find_element(*Selectors.USER_CONCLUSION)
 
+    # Имя
     browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(""))
+
+    # Фамилия
     browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(""))
 
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-    password_1 = p_password_generator()
-    password_2 = p2_password_generator()
+    # Пароли
+    password_1 = CharactersGenerator.p_password_generator()
+    password_2 = CharactersGenerator.p2_password_generator()
     browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password_1)
     browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password_2)
 
