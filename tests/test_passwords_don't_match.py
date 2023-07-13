@@ -36,6 +36,7 @@ def test_pass_dont_match(browser):
     browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password_1)
     browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password_2)
 
+    # Кнопка "Зарегистрироваться"
     browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
     # Явное ожидание текста "Пароли не совпадают" под полем 'Подтверждение пароля'"
