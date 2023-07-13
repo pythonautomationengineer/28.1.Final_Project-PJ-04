@@ -2,10 +2,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
-from Classes.FakePerson import FakePerson
-from generators.short_password_generator import short_password_generator
-from settings import link, unused_phone
 from Classes.Data_for_Assert import DataForAssert
+from Classes.FakePerson import FakePerson
+from generators.Characters_generator import CharactersGenerator
+from settings import link, unused_phone
 
 
 def test_short_password(browser):
@@ -31,11 +31,10 @@ def test_short_password(browser):
     # Телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-    # Генератор короткого пароля
-    shrt_password = short_password_generator()
-
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(shrt_password)
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(shrt_password)
+    # Пароли
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(CharactersGenerator.short_password_generator())
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
+        CharactersGenerator.short_password_generator())
 
     # Кнопка "Зарегистрироваться"
     browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
