@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from Classes.CSS_Selectors import Selectors
 from Classes.FakePerson import FakePerson
-from generators.very_long_last_name import very_long_last_name_generation
+from generators.Characters_generator import CharactersGenerator
 from settings import link, password, unused_phone
 
 
@@ -24,8 +24,7 @@ def test_valid_registration(browser):
     browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
 
     # Фамилия
-    long_last_name = very_long_last_name_generation()
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(long_last_name)
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.very_long_last_name_generation())
 
     # Номер
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
@@ -46,4 +45,4 @@ def test_valid_registration(browser):
     print()
     print()
     print(f"Текст '{text_information.text}' найден на странице, значит при регистрации "
-          f"была введена слишком длинная фамилия, так как Фамилия была введена полностью кириллическая")
+          f"была введена слишком длинная фамилия, так как фамилия была введена полностью кириллическая")
