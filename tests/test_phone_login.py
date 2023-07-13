@@ -1,9 +1,9 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.Data_for_Assert import DataForAssert
-from Classes.try_except_exception import handle_captcha
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Data_for_Assert import DataForAssert
+from Сlasses.try_except_exception import handle_captcha
 from settings import link, phone_valid, password
 
 
@@ -24,8 +24,7 @@ def test_login(browser):
     browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
 
     # Кнопка "Войти"
-    login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-    login_button.click()
+    browser.find_element(*Selectors.LOGIN_BUTTON).click()
 
     assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
 
