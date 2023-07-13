@@ -1,10 +1,10 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Classes.CSS_Selectors import Selectors
-from Classes.Data_for_Assert import DataForAssert
-from Classes.FakePerson import FakePerson
-from generators.Characters_generator import CharactersGenerator
+from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Data_for_Assert import DataForAssert
+from Сlasses.FakePerson import FakePerson
+from Сlasses.Characters_generator import CharactersGenerator as Cg
 from settings import link, unused_phone
 
 
@@ -31,10 +31,8 @@ def test_pass_dont_match(browser):
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
     # Пароли
-    password_1 = CharactersGenerator.p_password_generator()
-    password_2 = CharactersGenerator.p2_password_generator()
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password_1)
-    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password_2)
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(Cg.p_password_generator())
+    browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(Cg.p2_password_generator())
 
     # Кнопка "Зарегистрироваться"
     browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
