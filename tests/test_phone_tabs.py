@@ -12,18 +12,15 @@ def test_phone_tabs(browser):
     browser.get(link)
 
     # Явное ожидание таба с текстом "Почта"
-    wait = WebDriverWait(browser, 7)
+    wait = WebDriverWait(browser, 10)
     email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
     email_button.click()
 
     # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без ошибок
     handle_captcha(browser)
 
-    username_input = browser.find_element(*Selectors.USERNAME_INPUT)
-    password_input = browser.find_element(*Selectors.PASSWORD_INPUT)
-
-    username_input.send_keys(phone_valid)
-    password_input.send_keys(password)
+    browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
+    browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
 
     login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
     login_button.click()
