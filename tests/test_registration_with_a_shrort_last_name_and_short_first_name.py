@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from Classes.CSS_Selectors import Selectors
 from generators.one_symbol_generator import one_symbol_generator
 from settings import link, password, unused_phone
+from generators.Characters_generator import CharactersGenerator
 
 
 def test_valid_registration(browser):
@@ -25,8 +26,7 @@ def test_valid_registration(browser):
     browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(first_name)
 
     # Фамилия
-    last_name = one_symbol_generator()
-    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(last_name)
+    browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
 
     # Телефон
     browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
