@@ -381,3 +381,135 @@ class TestCreateAccount:
         print()
         print(f"Текст '{text_information_2.text}' найден на странице под полем 'Подтверждение пароля' после клика "
               f"по кнопке 'Зарегистрироваться'. Значит валидация на подтверждение пароля работает")
+
+    @staticmethod
+    @pytest.mark.negarive
+    def test_not_valid_registration(browser):
+        """Регистрация со всеми валидными полями кроме имени (слишком длинное имя)"""
+        browser.get(link)
+
+        # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        wait = WebDriverWait(browser, 7)
+        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration.click()
+
+        # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
+        WebDriverWait(browser, 5)
+        browser.find_element(*Selectors.USER_CONCLUSION)
+
+        # Имя
+        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(
+            CharactersGenerator.very_long_first_name_generation())
+
+        # Фамилия
+        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
+
+        # Номер
+        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+
+        # Пароли
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+
+        # Кнопка регистрации
+        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+
+        # Явное ожидание текста о том, что валидная длина имени от 2 до 30 символов
+        WebDriverWait(browser, 5)
+        text_information = browser.find_element(*Selectors.FIRST_NAME_ERROR_TEXT)
+
+        assert text_information.is_displayed()
+
+        print()
+        print()
+        print(f"Текст '{text_information.text}' найден на странице, значит при регистрации "
+              f"было введено слишком длинное имя, так как имя было введено полностью кириллическое")
+
+    @staticmethod
+    @pytest.mark.negarive
+    def test_valid_registration(browser):
+        """Регистрация со всеми валидными полями кроме фамилии (слишком длинная фамилия)"""
+        browser.get(link)
+
+        # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        wait = WebDriverWait(browser, 7)
+        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration.click()
+
+        # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
+        WebDriverWait(browser, 5)
+        browser.find_element(*Selectors.USER_CONCLUSION)
+
+        # Имя
+        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
+
+        # Фамилия
+        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.very_long_last_name_generation())
+
+        # Номер
+        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+
+        # Пароли
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+
+        # Кнопка регистрации
+        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+
+        # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
+        WebDriverWait(browser, 5)
+        text_information = browser.find_element(*Selectors.LAST_NAME_ERROR_TEXT)
+
+        assert text_information.is_displayed()
+
+        print()
+        print()
+        print(f"Текст '{text_information.text}' найден на странице, значит при регистрации "
+              f"была введена слишком длинная фамилия, так как фамилия была введена полностью кириллическая")
+
+    @staticmethod
+    @pytest.mark.negative
+    def test_valid_registration_too(browser):
+        """Регистрация со всеми валидными полями кроме фамилии и имени (слишком короткая фамилия и имя)"""
+        browser.get(link)
+
+        # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        wait = WebDriverWait(browser, 7)
+        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration.click()
+
+        # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
+        WebDriverWait(browser, 5)
+        browser.find_element(*Selectors.USER_CONCLUSION)
+
+        # Имя
+        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
+
+        # Фамилия
+        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
+
+        # Телефон
+        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+
+        # Пароли
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+
+        # Кнопка регистрации
+        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+
+        # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
+        WebDriverWait(browser, 5)
+
+        # Текст ошибки под полем с фамилией
+        text_information = browser.find_element(*Selectors.LAST_NAME_ERROR_TEXT)
+
+        # Текст ошибки под полем имени
+        text_information_2 = browser.find_element(*Selectors.FIRST_NAME_ERROR_TEXT)
+
+        assert text_information.is_displayed() and text_information_2.is_displayed()
+
+        print()
+        print()
+        print(f"Текст '{text_information.text}' найден на странице в 2 местах, "
+              f"значит при регистрации была введена слишком короткая фамилия и слишком короткое имя")
