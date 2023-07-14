@@ -22,13 +22,17 @@ def test_email_tabs(browser):
     # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без ошибок
     handle_captcha(browser)
 
+    # Ввод email
     username_input.send_keys(email_valid)
 
+    # Клик по полю "Пароль"
     password_input.click()
+
+    # Ввод пароля в поле "Пароль"
     password_input.send_keys(password)
 
-    login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-    login_button.click()
+    # Клик по кнопке "Войти"
+    browser.find_element(*Selectors.LOGIN_BUTTON).click()
 
     # Явное ожидание сообщения с текстом ошибки
     wait = WebDriverWait(browser, 3)
