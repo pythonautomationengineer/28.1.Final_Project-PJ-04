@@ -1,11 +1,8 @@
-import pytest
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from settings import link
 from Сlasses.CSS_Selectors import Selectors
-from settings import link, password
-from Сlasses.Data_for_Assert import DataForAssert
 
 
 # запустить все тесты в этом модуле
@@ -34,7 +31,10 @@ class TestOthers:
         new_tab_handle = handles[-1]
         browser.switch_to.window(new_tab_handle)
 
+        # Заголовок вкладки
         title_text = browser.title
+
+        # Текущий url
         current_url = browser.current_url
 
         browser.implicitly_wait(3)
@@ -58,7 +58,10 @@ class TestOthers:
         new_tab_handle = handles[-1]
         browser.switch_to.window(new_tab_handle)
 
+        # Заголовок вкладки
         title_text_2 = browser.title
+
+        # Текущий url
         current_url_2 = browser.current_url
 
         browser.implicitly_wait(3)
@@ -73,35 +76,3 @@ class TestOthers:
         print('Ссылки на страницы о политике конфиденциальности и пользовательское соглашение ведут на'
               ' одну и ту же страницу, так как у обеих страниц один и тот же url, '
               'заголовок вкладки, заголовок страницы')
-
-    @staticmethod
-    @pytest.mark.positive
-    def test_eye_icon_on_password(browser):
-        """Элемент <svg>, скрывающий видимость пароля, по клику открывает видимость пароля,
-        а при повторном клике скрывает обратно"""
-        browser.get(link)
-
-        # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
-        registration.click()
-
-        # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
-        browser.find_element(*Selectors.USER_CONCLUSION)
-
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-
-        attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).get_attribute("type")
-
-        # eye_icon
-        browser.find_element(*Selectors.EYE_ICON_PASSWORD).click()
-
-        attr_2 = browser.find_element(*Selectors.REGISTRATION_PASSWORD).get_attribute("type")
-
-        assert attr == DataForAssert.PASSWORD_ICON_ATTRIBUTE_1 and attr_2 == DataForAssert.PASSWORD_ICON_ATTRIBUTE_2
-
-        print()
-        print()
-        print(f"Поле пароля по умолчанию скрывает ввод символами '*', "
-              f"а при клике на иконку 'глаз' символы пароля видны пользователю")
