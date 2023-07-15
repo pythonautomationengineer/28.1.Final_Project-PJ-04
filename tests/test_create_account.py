@@ -1,15 +1,13 @@
 import pytest
-
-from Сlasses.Characters_generator import CharactersGenerator
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from settings import link, unused_phone, password, email_valid
 from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Characters_generator import CharactersGenerator
+from Сlasses.Characters_generator import CharactersGenerator as Cg
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
-from Сlasses.Characters_generator import CharactersGenerator as Cg
-from settings import link, unused_phone, password, email_valid
 
 
 # запустить все тесты в этом модуле
@@ -24,7 +22,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -41,6 +39,7 @@ class TestCreateAccountNegative:
         # email или телефон
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
+        # Пароль и подтверждение пароля
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
 
@@ -59,12 +58,12 @@ class TestCreateAccountNegative:
 
     @staticmethod
     @pytest.mark.negative
-    def test_return_to_home(browser):
+    def test_returning_to_the_home_page(browser):
         """Возвращение на главную страницу из модального окна с текстом 'Учетная запись уже используется'"""
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -81,6 +80,7 @@ class TestCreateAccountNegative:
         # email
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
+        # Пароль и подтверждение пароля
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
 
@@ -92,12 +92,17 @@ class TestCreateAccountNegative:
         WebDriverWait(browser, 5)
         return_button = wait.until(EC.visibility_of_element_located(Selectors.RETURN_BUTTON))
 
-        assert return_button.is_displayed()
+        return_button.click()
+
+        # Явное ожидание заголовка с текстом "Авторизация"
+        wait = WebDriverWait(browser, 10)
+        h1 = wait.until(EC.visibility_of_element_located(Selectors.H1_REGISTRATION))
+
+        assert h1.is_displayed()
 
         print()
         print()
-        print(f"По кнопке 'Войти' в модальном окне под заголовком 'Учетная запись уже используется' можно вернуться на "
-              f"главную страницу")
+        print(f"По кнопке 'Войти' в модальном окне можно вернуться на главную страницу")
 
     @staticmethod
     @pytest.mark.negative
@@ -107,7 +112,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -156,7 +161,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
 
         registration.click()
@@ -208,7 +213,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -258,7 +263,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -299,7 +304,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -342,7 +347,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -384,7 +389,7 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -430,12 +435,13 @@ class TestCreateAccountPositive:
 
     @staticmethod
     @pytest.mark.positive
+    @pytest.mark.smoke
     def test_registration(browser):
         """Наличие всех необходимых элементов регистрации пользователя на странице"""
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -478,13 +484,14 @@ class TestCreateAccountPositive:
 
     @staticmethod
     @pytest.mark.positive
+    @pytest.mark.smoke
     def test_valid_registration(browser):
         """Отправка сайтом кода подтверждения регистрации при всех введенных валидных данных, которые ранее
         не были использованы"""
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -501,6 +508,7 @@ class TestCreateAccountPositive:
         # Номер
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
+        # Пароль и подтверждение пароля
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
 
