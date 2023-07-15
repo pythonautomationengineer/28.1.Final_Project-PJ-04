@@ -4,6 +4,7 @@ from Сlasses.Data_for_Assert import DataForAssert
 
 
 def handle_captcha(browser):
+    """При появлении каптчи на сайте"""
     try:
         captcha = browser.find_element(*Selectors.CAPTCHA_TEXT)
         assert not captcha.is_displayed(), DataForAssert.CAPTCHA_INFO
