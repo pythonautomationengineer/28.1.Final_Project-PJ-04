@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from settings import link
 from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Stability_and_features_of_OS import Explicit_Wait, Implicit_Wait
 
 
 # запустить все тесты в этом модуле
@@ -21,7 +22,7 @@ class TestOthers:
         browser.execute_script("window.scrollBy(0, 100)")
 
         # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
-        wait = WebDriverWait(browser, 30)
+        wait = WebDriverWait(browser, Explicit_Wait)
         link_1 = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
         link_1.click()
 
@@ -37,7 +38,7 @@ class TestOthers:
         # Текущий url
         current_url = browser.current_url
 
-        browser.implicitly_wait(3)
+        browser.implicitly_wait(Implicit_Wait)
 
         # Заголовок статьи политики конфиденциальности
         find_text_h1 = browser.find_element(*Selectors.HEADING_STATE_POLITICS_PRIVACY_POLICY).text
@@ -64,6 +65,7 @@ class TestOthers:
         # Текущий url
         current_url_2 = browser.current_url
 
+        # Неявное ожидание
         browser.implicitly_wait(3)
 
         # Заголовок статьи пользовательского соглашения
