@@ -12,8 +12,8 @@ from settings import link, phone_valid, old_password, login, password, email_val
 # запустить все тесты в этом модуле
 # pytest -k 'personal' -v -s
 
-class TestLogin:
-    """Позитивные и негативные тесты, которые проверяют вход в личный кабинет"""
+class TestLoginPositive:
+    """Позитивные тесты, которые проверяют вход в личный кабинет"""
 
     @staticmethod
     @pytest.mark.positive
@@ -101,39 +101,6 @@ class TestLogin:
         print(f'Вход успешно выполнен. Текст "{DataForAssert.CREDENTIALS}" найден на странице.')
 
     @staticmethod
-    @pytest.mark.negative
-    def test_login_4(browser):
-        """Вход в ЛК с предыдущем паролем"""
-        browser.get(link)
-
-        # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, 7)
-        phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
-        phone_button.click()
-
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-        # иначе выполнится без ошибок
-        handle_captcha(browser)
-
-        # Телефон и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(old_password)
-
-        # Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
-
-        wait = WebDriverWait(browser, 3)
-        wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
-        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
-
-        assert error_message == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
-
-        print()
-        print()
-        print(f'Появилась ошибка входа с текстом "{error_message}". Вход не может быть выполнен с предыдущим паролем."')
-
-    @staticmethod
     @pytest.mark.positive
     def test_email_tabs(browser):
         """Смена таба выбора аутентификации при вводе почты в табе "Телефон"""
@@ -200,3 +167,40 @@ class TestLogin:
         print()
         print(f'Вход в кабинет выполнен. Текст "{DataForAssert.CREDENTIALS}" найден на странице, значит автоматическая '
               f'смена таба произошла.')
+
+
+class TestLoginNegative:
+    """Негативные тесты, которые проверяют вход в личный кабинет"""
+
+    @staticmethod
+    @pytest.mark.negative
+    def test_login_4(browser):
+        """Вход в ЛК с предыдущем паролем"""
+        browser.get(link)
+
+        # Явное ожидание таба с текстом "Телефон"
+        wait = WebDriverWait(browser, 7)
+        phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
+        phone_button.click()
+
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
+        handle_captcha(browser)
+
+        # Телефон и пароль
+        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
+        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(old_password)
+
+        # Кнопка "Войти"
+        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
+        login_button.click()
+
+        wait = WebDriverWait(browser, 3)
+        wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
+        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
+
+        assert error_message == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
+
+        print()
+        print()
+        print(f'Появилась ошибка входа с текстом "{error_message}". Вход не может быть выполнен с предыдущим паролем."')
