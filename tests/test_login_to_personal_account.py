@@ -17,7 +17,7 @@ class TestLoginPositive:
 
     @staticmethod
     @pytest.mark.positive
-    def test_login(browser):
+    def test_login_with_valid_phone_and_password(browser):
         """Вход в личный кабинет по валидному телефону и паролю"""
         browser.get(link)
 
@@ -26,8 +26,8 @@ class TestLoginPositive:
         phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без
-        # ошибок
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
         handle_captcha(browser)
 
         # Телефон и пароль
@@ -45,7 +45,7 @@ class TestLoginPositive:
 
     @staticmethod
     @pytest.mark.positive
-    def test_login_2(browser):
+    def test_login_with_valid_email_and_password(browser):
         """Вход в личный кабинет по валидному email и паролю"""
         browser.get(link)
 
@@ -74,7 +74,7 @@ class TestLoginPositive:
 
     @staticmethod
     @pytest.mark.positive
-    def test_login_3(browser):
+    def test_login_with_valid_login_and_password(browser):
         """Вход в личный кабинет по валидному логину и паролю"""
         browser.get(link)
 
@@ -174,7 +174,7 @@ class TestLoginNegative:
 
     @staticmethod
     @pytest.mark.negative
-    def test_login_4(browser):
+    def test_login_with_old_password(browser):
         """Вход в ЛК с предыдущем паролем"""
         browser.get(link)
 
@@ -195,6 +195,7 @@ class TestLoginNegative:
         login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
         login_button.click()
 
+        # Текст ошибки входа
         wait = WebDriverWait(browser, 3)
         wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
         error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
