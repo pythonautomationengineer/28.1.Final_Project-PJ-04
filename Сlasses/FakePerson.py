@@ -15,7 +15,7 @@ class FakePerson:
     max_length_first_name = 10  # задает максимальную длину имени
     min_length_first_name = 4  # задает минимальную длину имени
     max_length_patronymic_name = 12  # задает максимальную длину отчества
-    min_length_patronymic_name = 12  # задает минимальную длину отчества
+    min_length_patronymic_name = 4  # задает минимальную длину отчества
     length_phone = 11  # задает длину номера телефона
     first_name_word_endings = {'ов', 'ев', 'ёв', 'ин', 'ич', 'на', 'ва', 'ия', 'са', 'ра', 'та', 'вь', 'да', 'ья', 'га',
                                'ла',
