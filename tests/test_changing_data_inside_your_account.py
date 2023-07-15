@@ -1,3 +1,4 @@
+import pytest
 from selenium.webdriver import Keys
 from Сlasses.FakePerson import FakePerson
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,20 +12,22 @@ from settings import link, email_valid, password
 # запустить все тесты в этом модуле
 # pytest -k 'inside' -v -s
 
-class TestChangingDataInsideYourAccount:
-    """Позитивные и негативные тесты, изменяющие данные пользователя внутри личного кабинета"""
+class TestChangingDataInsideYourAccountPositive:
+    """Позитивные тесты, изменяющие данные пользователя внутри личного кабинета"""
+
     @staticmethod
-    def test_login(browser):
+    @pytest.mark.positive
+    def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без
-        # ошибок
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
         handle_captcha(browser)
 
         # email и пароль
@@ -38,7 +41,8 @@ class TestChangingDataInsideYourAccount:
         wait = WebDriverWait(browser, 5)
         wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
-        start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
+        # Изначальное отчество
+        start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text.split()[1]
 
         browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
@@ -48,7 +52,7 @@ class TestChangingDataInsideYourAccount:
 
         browser.find_element(*Selectors.USER_PATRONYMIC).click()
 
-        # Ввод отчества
+        # Удаление старого отчества и ввод нового отчества
         browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(Keys.CONTROL + "a", Keys.DELETE)
         browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(
             FakePerson.generate_patronymic_name_of_man(start_patronymic_name))
@@ -63,28 +67,29 @@ class TestChangingDataInsideYourAccount:
         toast = browser.find_element(*Selectors.TOAST_CHANGING_NAME_LAST_NAME_PATRONYMIC)
         izm_fio = browser.find_element(*Selectors.TEXT_INSIDE_TOAST).text
 
-        # Новое отчество (включая имя, так как один селектор)
-        new_patronymic_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text
+        # Новое отчество
+        new_patronymic_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text.split()[1]
 
         assert izm_fio == DataForAssert.TOAST_TEXT and toast.is_displayed()
 
         print()
         print()
         print(f'Появилось тост-уведомление об успешном изменении отчества. '
-              f'Старое отчество "{start_patronymic_name.split()[1]}" изменилось на "{new_patronymic_name.split()[1]}"')
+              f'Изначальное отчество "{start_patronymic_name}" изменилось на "{new_patronymic_name}".')
 
     @staticmethod
-    def test_login_2(browser):
+    @pytest.mark.positive
+    def test_change_of_first_and_last_name(browser):
         """Изменение имени и фамилии внутри личного кабинета"""
         browser.get(link)
 
         #  Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без
-        # ошибок
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
         handle_captcha(browser)
 
         # email и пароль
@@ -104,6 +109,8 @@ class TestChangingDataInsideYourAccount:
 
         # Текущее имя и отчество
         start_first_name_and_middle_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text
+
+        # Текущее имя
         start_first_name = start_first_name_and_middle_name.split()[0]
 
         # Клик по кнопке изменения ФИО
@@ -141,7 +148,7 @@ class TestChangingDataInsideYourAccount:
         izm_fio = browser.find_element(*Selectors.TEXT_INSIDE_TOAST).text
 
         # Новое имя
-        new_first_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text
+        new_first_name = browser.find_element(*Selectors.NEW_FIRST_NAME_AND_PATRONYMIC).text.split()[0]
 
         # Новая фамилия
         new_last_name = browser.find_element(*Selectors.NEW_LAST_NAME).text
@@ -152,15 +159,20 @@ class TestChangingDataInsideYourAccount:
         print()
         print(f'Toast-уведомление об изменении данных появилось на странице. Старая фамилия "{start_last_name}"'
               f' была изменена на "{new_last_name}". Старое имя "{start_first_name}"'
-              f' было изменено на "{new_first_name.split()[0]}".')
+              f' было изменено на "{new_first_name}".')
+
+
+class TestChangingDataInsideYourAccountNegative:
+    """Негативные тесты, изменяющие данные пользователя внутри личного кабинета"""
 
     @staticmethod
-    def test_login_3(browser):
+    @pytest.mark.negative
+    def test_changing_passwords(browser):
         """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, 10)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
@@ -183,7 +195,7 @@ class TestChangingDataInsideYourAccount:
         browser.find_element(*Selectors.CHANGING_PASSWORD_ICON).click()
 
         # Явное ожидание поля ввода текущего пароля
-        wait = WebDriverWait(browser, 2)
+        wait = WebDriverWait(browser, 5)
         wait.until(EC.visibility_of_element_located(Selectors.CURRENT_PASSWORD))
 
         # Текущий пароль
@@ -204,6 +216,7 @@ class TestChangingDataInsideYourAccount:
         wait = WebDriverWait(browser, 5)
         wait.until(EC.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
 
+        # Текст "Этот пароль уже использовался, укажите другой пароль"
         find_text = browser.find_element(*Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT).text
 
         assert find_text == DataForAssert.PREVIOUSLY_USED_PASSWORD
