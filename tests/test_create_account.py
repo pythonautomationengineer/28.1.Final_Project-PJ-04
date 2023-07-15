@@ -88,10 +88,10 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
-
         WebDriverWait(browser, 5)
         return_button = wait.until(EC.visibility_of_element_located(Selectors.RETURN_BUTTON))
 
+        # Клик по кнопе возврата на страницу регистрации
         return_button.click()
 
         # Явное ожидание заголовка с текстом "Авторизация"
@@ -164,6 +164,7 @@ class TestCreateAccountNegative:
         wait = WebDriverWait(browser, 10)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
 
+        # Клик по ссылке с текстом "Зарегистрироваться"
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -236,6 +237,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
             CharactersGenerator.not_latin_password_generator())
 
+        # Клик по кнопке "Зарегистрироваться"
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста "Пароль должен содержать только латинские буквы" под полем 'Пароль'"
@@ -277,6 +279,7 @@ class TestCreateAccountNegative:
         # Фамилия
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(""))
 
+        # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
         # Пароли
@@ -361,7 +364,7 @@ class TestCreateAccountNegative:
         # Фамилия
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.very_long_last_name_generation())
 
-        # Номер
+        # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
         # Пароли
@@ -403,7 +406,7 @@ class TestCreateAccountNegative:
         # Фамилия
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
 
-        # Телефон
+        # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
         # Пароли
@@ -466,6 +469,7 @@ class TestCreateAccountPositive:
         # email
         email_or_phone = browser.find_element(*Selectors.ADDRESS_INPUT)
 
+        # Пароль и подтверждение пароля
         password_input = browser.find_element(*Selectors.REGISTRATION_PASSWORD)
         password_confirm = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM)
 
@@ -505,7 +509,7 @@ class TestCreateAccountPositive:
         # Фамилия
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
 
-        # Номер
+        # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
         # Пароль и подтверждение пароля
