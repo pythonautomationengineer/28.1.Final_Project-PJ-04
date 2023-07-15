@@ -529,3 +529,39 @@ class TestCreateAccountPositive:
         print()
         print(f"Текст '{text_information.text}' найден на странице, значит пользователю "
               f"код подтверждения телефона был отправлен")
+
+    @staticmethod
+    @pytest.mark.positive
+    def test_eye_icon_on_password(browser):
+        """Элемент <svg>, скрывающий видимость пароля, по клику открывает видимость пароля,
+        а при повторном клике скрывает обратно"""
+        browser.get(link)
+
+        # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        wait = WebDriverWait(browser, 7)
+        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration.click()
+
+        # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
+        WebDriverWait(browser, 5)
+        browser.find_element(*Selectors.USER_CONCLUSION)
+
+        # Ввод пароля
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
+
+        # Изначальный атрибут элемента скрытия/открытия пароля
+        start_attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).get_attribute("type")
+
+        # Клик по иконке "глаз" для изменения атрибута данного элемента
+        browser.find_element(*Selectors.EYE_ICON_PASSWORD).click()
+
+        # Атрибут элемента скрытия/открытия пароля после клика
+        end_attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD).get_attribute("type")
+
+        assert start_attr == DataForAssert.PASSWORD_ICON_ATTRIBUTE_1 \
+               and end_attr == DataForAssert.PASSWORD_ICON_ATTRIBUTE_2
+
+        print()
+        print()
+        print(f"Поле пароля по умолчанию скрывает ввод символами '*', "
+              f"а при клике на иконку 'глаз' символы пароля видны пользователю")
