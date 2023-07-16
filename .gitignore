@@ -1,0 +1,10 @@
+*.iml
+*.xml
+.pytest_cache
+*.pyc
+*.TAG
+venv
+Сlasses/__pycache__/
+/__pycache__/
+.fleet
+.idea
