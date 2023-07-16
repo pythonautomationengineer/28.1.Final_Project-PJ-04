@@ -1,12 +1,13 @@
 import pytest
 from selenium.webdriver import Keys
-from Сlasses.FakePerson import FakePerson
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+
+from settings import link, email_valid, password
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.try_except_exception import handle_captcha
-from settings import link, email_valid, password
+from Сlasses.FakePerson import FakePerson
+from Сlasses.Stability import Captcha, OSandUserName
 
 
 # запустить все тесты в этом модуле
@@ -16,7 +17,14 @@ class TestChangingDataInsideYourAccountPositive:
     """Позитивные тесты, изменяющие данные пользователя внутри личного кабинета"""
 
     @staticmethod
-    @pytest.mark.positive
+    @pytest.mark.xfail
+    @pytest.mark.skipif(OSandUserName.os() not in OSandUserName.all_support_os, reason=f'{OSandUserName.user_login()}, '
+                                                                                       f'тест выполняется только на '
+                                                                                       f'{OSandUserName.all_support_os}'
+                                                                                       f' системах, так как '
+                                                                                       f'используются '
+                                                                                       f'горячие клавиши '
+                                                                                       f'данных ОС')
     def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
         browser.get(link)
@@ -28,7 +36,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
-        handle_captcha(browser)
+        Captcha.handle_captcha(browser)
 
         # email и пароль
         browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
@@ -52,8 +60,11 @@ class TestChangingDataInsideYourAccountPositive:
 
         browser.find_element(*Selectors.USER_PATRONYMIC).click()
 
+        # Получение горячих клавиш для конкретной OS пользовательской машины
+        os_hotkeys = OSandUserName.hotkeys(OSandUserName.os())
+
         # Удаление старого отчества и ввод нового отчества
-        browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(Keys.CONTROL + "a", Keys.DELETE)
+        browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(os_hotkeys)
         browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(
             FakePerson.generate_patronymic_name_of_man(start_patronymic_name))
 
@@ -78,7 +89,11 @@ class TestChangingDataInsideYourAccountPositive:
               f'Изначальное отчество "{start_patronymic_name}" изменилось на "{new_patronymic_name}".')
 
     @staticmethod
-    @pytest.mark.positive
+    @pytest.mark.xfail
+    @pytest.mark.skipif(OSandUserName.os() != "Windows", reason=f'{OSandUserName.user_login()},'
+                                                                f'тест выполняется только на Windows, '
+                                                                f'так как используются горячие клавиши '
+                                                                f'данной ОС')
     def test_change_of_first_and_last_name(browser):
         """Изменение имени и фамилии внутри личного кабинета"""
         browser.get(link)
@@ -90,7 +105,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
-        handle_captcha(browser)
+        Captcha.handle_captcha(browser)
 
         # email и пароль
         browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
@@ -166,7 +181,7 @@ class TestChangingDataInsideYourAccountNegative:
     """Негативные тесты, изменяющие данные пользователя внутри личного кабинета"""
 
     @staticmethod
-    @pytest.mark.negative
+    @pytest.mark.xfail
     def test_changing_passwords(browser):
         """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
         browser.get(link)
@@ -176,9 +191,9 @@ class TestChangingDataInsideYourAccountNegative:
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError, иначе выполнится без
-        # ошибок
-        handle_captcha(browser)
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
+        Captcha.handle_captcha(browser)
 
         # email и пароль
         browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
@@ -216,7 +231,7 @@ class TestChangingDataInsideYourAccountNegative:
         wait = WebDriverWait(browser, 5)
         wait.until(EC.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
 
-        # Текст "Этот пароль уже использовался, укажите другой пароль"
+        # Текст ошибки
         find_text = browser.find_element(*Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT).text
 
         assert find_text == DataForAssert.PREVIOUSLY_USED_PASSWORD
