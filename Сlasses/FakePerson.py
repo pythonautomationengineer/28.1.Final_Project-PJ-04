@@ -66,14 +66,11 @@ class FakePerson:
 
     @staticmethod
     def generate_fake_phone() -> str:
-        """Генерация случайного номера, с некоторыми доработками под требования соответствующего поля формы
+        """Рекурсивная генерация случайного номера, с некоторыми доработками под требования соответствующего поля формы
         на тестируемом сайте"""
         phone = fake.phone_number()
         if len(phone) == FakePerson.length_phone and phone[0:1] == '8':
-            # вернуть случайного оператора из 4 со сгенерированными оставшимися символами
+            # вернуть случайного оператора из 4 со сгенерированными оставшимися числами
             return FakePerson.operators[random.randint(0, 3)] + f'{phone[3:]}'
         else:
             return FakePerson.generate_fake_phone()
-
-
-print(FakePerson.generate_fake_phone())
