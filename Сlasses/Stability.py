@@ -27,10 +27,9 @@ class Captcha:
 
 class OSandUserName:
     """Определение ОС, на которой исполняется код и имени пользователя"""
-    all_support_os = ["Windows", 'macOS', 'Linux']
+    all_support_os = ["Windows", 'macOS']
     apple_os = 'macOS'
     microsoft_os = 'Windows'
-    linux = 'Linux'
 
     @staticmethod
     def os():
@@ -47,12 +46,10 @@ class OSandUserName:
     @staticmethod
     def hotkeys(user_os):
         """Задание горячих клавиш для очистки символов в инпутах на разных OS"""
-        win = Keys.CONTROL + "a", Keys.DELETE
-        apple = Keys.COMMAND + "a", Keys.DELETE
-        linux = Keys.CONTROL + "a", Keys.DELETE
+        win = Keys.CONTROL + "a", Keys.DELETE  # проверено, работает
+        apple = Keys.COMMAND + "a", Keys.DELETE  # возможно работает, но проверить не могу, так как нет macOS на руках
+
         if user_os == OSandUserName.microsoft_os:
             return win
         elif user_os == OSandUserName.apple_os:
             return apple
-        elif user_os == OSandUserName.linux:
-            return linux
