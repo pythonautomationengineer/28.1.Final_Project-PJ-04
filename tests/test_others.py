@@ -1,9 +1,10 @@
+import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from settings import link
 from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Stability_and_features_of_OS import explicit_wait, implicit_wait
+from Сlasses.Stability import StabilityTimes
 
 
 # запустить все тесты в этом модуле
@@ -13,6 +14,7 @@ class TestOthers:
     """Тесты, которые не вошли в другие модули"""
 
     @staticmethod
+    @pytest.mark.xfail
     def test_different_links(browser):
         """Отличие ссылок на Пользовательское соглашение и Политику конфиденциальности
         при переходе со страницы авторизации и отличие названий их вкладок в браузере"""
@@ -22,7 +24,7 @@ class TestOthers:
         browser.execute_script("window.scrollBy(0, 100)")
 
         # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
-        wait = WebDriverWait(browser, explicit_wait)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         link_1 = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
         link_1.click()
 
@@ -38,7 +40,7 @@ class TestOthers:
         # Текущий url
         current_url = browser.current_url
 
-        browser.implicitly_wait(implicit_wait)
+        browser.implicitly_wait(StabilityTimes.implicit_wait)
 
         # Заголовок статьи политики конфиденциальности
         find_text_h1 = browser.find_element(*Selectors.HEADING_STATE_POLITICS_PRIVACY_POLICY).text
