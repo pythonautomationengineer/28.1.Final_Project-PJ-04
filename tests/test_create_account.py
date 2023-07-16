@@ -1,4 +1,3 @@
-import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -16,7 +15,6 @@ class TestCreateAccountNegative:
     """Негативные тесты, связанные с регистрацией"""
 
     @staticmethod
-    @pytest.mark.negative
     def test_invalid_registration(browser):
         """Регистрация по ранее используемым и действующим логином и паролем"""
         browser.get(link)
@@ -57,7 +55,6 @@ class TestCreateAccountNegative:
         print(f"Текст '{text_information.text}' найден на странице, значит пользователь с введенными данными уже есть")
 
     @staticmethod
-    @pytest.mark.negative
     def test_returning_to_the_home_page(browser):
         """Возвращение на главную страницу из модального окна с текстом 'Учетная запись уже используется'"""
         browser.get(link)
@@ -105,7 +102,6 @@ class TestCreateAccountNegative:
         print(f"По кнопке 'Войти' в модальном окне можно вернуться на главную страницу")
 
     @staticmethod
-    @pytest.mark.negative
     def test_short_password(browser):
         """Появление сообщения в форме регистрации с текстом "Длина пароля должна быть не менее 8 символов"
         под полем "Новый пароль" при вводе пароля из 7 символов"""
@@ -154,7 +150,6 @@ class TestCreateAccountNegative:
               f"'Зарегистрироваться'. Значит валидация на короткое значение пароля работает")
 
     @staticmethod
-    @pytest.mark.negative
     def test_big_letter(browser):
         """Появление сообщения в форме регистрации с текстом "Пароль должен содержать хотя бы одну заглавную букву"
         под полем "Пароль" и "Подтверждение пароля" при введении 8 символов: маленьких букв и цифр"""
@@ -207,7 +202,6 @@ class TestCreateAccountNegative:
             f"'Зарегистрироваться'. Значит валидация на заглавную букву пароля работает")
 
     @staticmethod
-    @pytest.mark.negative
     def test_latin_password(browser):
         """Появление сообщения в форме регистрации с текстом "Пароль должен содержать только латинские буквы" под полем
         "Пароль" и "Подтверждение пароля при введении 9 символов кириллицы"""
@@ -258,7 +252,6 @@ class TestCreateAccountNegative:
             f"'Зарегистрироваться'. Значит валидация на латинские символы пароля работает.")
 
     @staticmethod
-    @pytest.mark.negative
     def test_pass_dont_match(browser):
         """Выводится "Пароли не совпадают" под полем "Подтверждение пароля", если пользователь ввел разные пароли
         при регистрации"""
@@ -301,7 +294,6 @@ class TestCreateAccountNegative:
               f"по кнопке 'Зарегистрироваться'. Значит валидация на подтверждение пароля работает")
 
     @staticmethod
-    @pytest.mark.negative
     def test_not_valid_registration(browser):
         """Регистрация со всеми валидными полями кроме имени (слишком длинное имя)"""
         browser.get(link)
@@ -344,7 +336,6 @@ class TestCreateAccountNegative:
               f"было введено слишком длинное имя, так как имя было введено полностью кириллическое")
 
     @staticmethod
-    @pytest.mark.negative
     def test_valid_registration(browser):
         """Регистрация со всеми валидными полями кроме фамилии (слишком длинная фамилия)"""
         browser.get(link)
@@ -386,7 +377,6 @@ class TestCreateAccountNegative:
               f"была введена слишком длинная фамилия, так как фамилия была введена полностью кириллическая")
 
     @staticmethod
-    @pytest.mark.negative
     def test_valid_registration_too(browser):
         """Регистрация со всеми валидными полями кроме фамилии и имени (слишком короткая фамилия и имя)"""
         browser.get(link)
@@ -437,8 +427,6 @@ class TestCreateAccountPositive:
     """Позитивные тесты, связанные с регистрацией"""
 
     @staticmethod
-    @pytest.mark.positive
-    @pytest.mark.smoke
     def test_registration(browser):
         """Наличие всех необходимых элементов регистрации пользователя на странице"""
         browser.get(link)
@@ -487,8 +475,6 @@ class TestCreateAccountPositive:
         print("Все необходимые элементы на странице присутствуют и были найдены")
 
     @staticmethod
-    @pytest.mark.positive
-    @pytest.mark.smoke
     def test_valid_registration(browser):
         """Отправка сайтом кода подтверждения регистрации при всех введенных валидных данных, которые ранее
         не были использованы"""
@@ -531,7 +517,6 @@ class TestCreateAccountPositive:
               f"код подтверждения телефона был отправлен")
 
     @staticmethod
-    @pytest.mark.positive
     def test_eye_icon_on_password(browser):
         """Элемент <svg>, скрывающий видимость пароля, по клику открывает видимость пароля,
         а при повторном клике скрывает обратно"""
