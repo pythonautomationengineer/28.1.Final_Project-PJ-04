@@ -1,5 +1,4 @@
 import pytest
-from selenium.webdriver import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -18,13 +17,15 @@ class TestChangingDataInsideYourAccountPositive:
 
     @staticmethod
     @pytest.mark.xfail
-    @pytest.mark.skipif(OSandUserName.os() not in OSandUserName.all_support_os, reason=f'{OSandUserName.user_login()}, '
-                                                                                       f'тест выполняется только на '
-                                                                                       f'{OSandUserName.all_support_os}'
-                                                                                       f' системах, так как '
-                                                                                       f'используются '
-                                                                                       f'горячие клавиши '
-                                                                                       f'данных ОС')
+    @pytest.mark.skipif(OSandUserName.os() not in OSandUserName.all_support_os,
+                        reason=f'{OSandUserName.user_login()}, '
+                        f'тест выполняется только на '
+                        f'системах: '
+                        f'{", ".join(OSandUserName.all_support_os)},'
+                        f' так как'
+                        f' используются'
+                        f' горячие клавиши'
+                        f' данных ОС')
     def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
         browser.get(link)
@@ -90,10 +91,15 @@ class TestChangingDataInsideYourAccountPositive:
 
     @staticmethod
     @pytest.mark.xfail
-    @pytest.mark.skipif(OSandUserName.os() != "Windows", reason=f'{OSandUserName.user_login()},'
-                                                                f'тест выполняется только на Windows, '
-                                                                f'так как используются горячие клавиши '
-                                                                f'данной ОС')
+    @pytest.mark.skipif(OSandUserName.os() not in OSandUserName.all_support_os,
+                        reason=f'{OSandUserName.user_login()}, '
+                               f'тест выполняется только на '
+                               f'системах: '
+                               f'{", ".join(OSandUserName.all_support_os)},'
+                               f' так как'
+                               f' используются'
+                               f' горячие клавиши'
+                               f' данных ОС')
     def test_change_of_first_and_last_name(browser):
         """Изменение имени и фамилии внутри личного кабинета"""
         browser.get(link)
@@ -137,8 +143,11 @@ class TestChangingDataInsideYourAccountPositive:
 
         browser.find_element(*Selectors.USER_LASTNAME).click()
 
+        # Получение горячих клавиш для конкретной OS пользовательской машины
+        os_hotkeys = OSandUserName.hotkeys(OSandUserName.os())
+
         # Очистить поле перед новым вводом фамилии
-        browser.find_element(*Selectors.USER_LASTNAME).send_keys(Keys.CONTROL + "a", Keys.DELETE)
+        browser.find_element(*Selectors.USER_LASTNAME).send_keys(os_hotkeys)
 
         # Ввод новой фамилии
         browser.find_element(*Selectors.USER_LASTNAME).send_keys(
@@ -147,7 +156,7 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.USER_FIRSTNAME).click()
 
         # Очистить поле перед новым вводом имени
-        browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(Keys.CONTROL + "a", Keys.DELETE)
+        browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(os_hotkeys)
 
         browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(
             FakePerson.generate_first_name_of_man(start_first_name))
