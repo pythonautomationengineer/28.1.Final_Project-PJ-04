@@ -26,7 +26,7 @@ class FakePerson:
 
     @staticmethod
     def generate_last_name_of_man(old_last_name: str) -> str:
-        """Генерация мужской фамилии"""
+        """Рекурсивная генерация мужской фамилии"""
         name = fake.name()
         last_name = name.split()[0]
         if (old_last_name != last_name) and (FakePerson.min_length_last_name < len(last_name)
@@ -38,7 +38,7 @@ class FakePerson:
 
     @staticmethod
     def generate_first_name_of_man(old_first_name: str) -> str:
-        """Генерация мужского имени"""
+        """Рекурсивная генерация мужского имени"""
         name = fake.name()
         first_name = name.split()[1]
 
@@ -52,7 +52,7 @@ class FakePerson:
 
     @staticmethod
     def generate_patronymic_name_of_man(old_patronymic_name: str) -> str:
-        """Генерация мужского имени"""
+        """Рекурсивная генерация мужского имени"""
         name = fake.name()
         patronymic_name = name.split()[2]
         if (old_patronymic_name != patronymic_name) and (
@@ -66,11 +66,11 @@ class FakePerson:
 
     @staticmethod
     def generate_fake_phone() -> str:
-        """Рекурсивная генерация случайного номера, с некоторыми доработками под требования соответствующего поля формы
-        на тестируемом сайте"""
+        """Рекурсивная генерация случайного номера, с некоторыми доработками под требования
+        соответствующего поля формы на тестируемом сайте"""
         phone = fake.phone_number()
         if len(phone) == FakePerson.length_phone and phone[0:1] == '8':
-            # вернуть случайного оператора из 4 со сгенерированными оставшимися числами
+            # вернуть случайного оператора из определенных в переменной со сгенерированными оставшимися числами
             return FakePerson.operators[random.randint(0, 3)] + f'{phone[3:]}'
         else:
             return FakePerson.generate_fake_phone()
