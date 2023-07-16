@@ -11,7 +11,6 @@ from Сlasses.Stability import Captcha, OSandUserName
 
 # запустить все тесты в этом модуле
 # pytest -k 'inside' -v -s
-
 class TestChangingDataInsideYourAccountPositive:
     """Позитивные тесты, изменяющие данные пользователя внутри личного кабинета"""
 
