@@ -51,7 +51,7 @@ class TestOthers:
         browser.execute_script("window.scrollBy(0, 100)")
 
         # Явное ожидание ссылки с текстом "Пользовательским соглашением"
-        wait = WebDriverWait(browser, 6)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         link_1 = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_TEXT_USER_AGREEMENT))
         link_1.click()
 
@@ -68,7 +68,7 @@ class TestOthers:
         current_url_2 = browser.current_url
 
         # Неявное ожидание
-        browser.implicitly_wait(3)
+        browser.implicitly_wait(StabilityTimes.implicit_wait)
 
         # Заголовок статьи пользовательского соглашения
         find_text_h1_2 = browser.find_element(*Selectors.HEADING_ARTICLES_USER_REFERENCES).text
