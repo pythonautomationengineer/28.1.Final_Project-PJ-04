@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from settings import link, phone_valid, old_password, login, password, email_valid
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.Stability import Captcha
+from Сlasses.Stability import Captcha, StabilityTimes
 
 
 # запустить все тесты в этом модуле
@@ -21,7 +21,7 @@ class TestLoginPositive:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
@@ -49,7 +49,7 @@ class TestLoginPositive:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
@@ -78,7 +78,7 @@ class TestLoginPositive:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Логин"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         login_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_LOGIN_LOGIN))
         login_button.click()
 
@@ -106,7 +106,7 @@ class TestLoginPositive:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
@@ -130,7 +130,7 @@ class TestLoginPositive:
         browser.find_element(*Selectors.LOGIN_BUTTON).click()
 
         # Явное ожидание сообщения с текстом ошибки
-        wait = WebDriverWait(browser, 3)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         error_message = wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
 
         assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
@@ -146,7 +146,7 @@ class TestLoginPositive:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         email_button.click()
 
@@ -178,7 +178,7 @@ class TestLoginNegative:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
@@ -195,7 +195,7 @@ class TestLoginNegative:
         login_button.click()
 
         # Текст ошибки входа
-        wait = WebDriverWait(browser, 3)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
         error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
 
