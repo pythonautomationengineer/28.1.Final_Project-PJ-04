@@ -70,7 +70,7 @@ class FakePerson:
         соответствующего поля формы на тестируемом сайте"""
         phone = fake.phone_number()
         if len(phone) == FakePerson.length_phone and phone[0:1] == '8':
-            # вернуть случайного оператора из определенных в переменной со сгенерированными оставшимися числами
+            # вернуть случайного оператора из определенных в переменной класса со сгенерированными оставшимися числами
             return FakePerson.operators[random.randint(0, 3)] + f'{phone[3:]}'
         else:
             return FakePerson.generate_fake_phone()
