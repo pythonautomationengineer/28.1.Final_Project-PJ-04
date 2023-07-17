@@ -2,7 +2,7 @@ class CharactersGenerator:
     """Генераторы некоторых паролей и отдельных символов, для которых не подходит библиотека Faker"""
 
     @staticmethod
-    def not_latin_password_generator():
+    def not_latin_password_generator() -> str:
         """Не латинский пароль из 8 символов"""
         numbers = '1234567890'
         russian_alphabet = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
@@ -18,14 +18,14 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def one_symbol_generator():
+    def one_symbol_generator() -> str:
         """1 символ кириллицы"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()  # 1 символ
         return first_symbol
 
     @staticmethod
-    def short_password_generator():
+    def short_password_generator() -> str:
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
         special_characters = '#$%^&*'
@@ -40,7 +40,7 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def small_letter_password_generator():
+    def small_letter_password_generator() -> str:
         """8 lower-символов для пароля"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -56,7 +56,7 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def dont_match_password_generator_1():
+    def dont_match_password_generator_1() -> str:
         """Валидный пароль из 13 символов"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -72,7 +72,7 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def dont_match_password_generator_2():
+    def dont_match_password_generator_2() -> str:
         """Валидный пароль из 15 символов"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -88,7 +88,7 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def very_long_first_name_generation():
+    def very_long_first_name_generation() -> str:
         """Имя из 31 символа"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()
@@ -100,7 +100,7 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def very_long_last_name_generation():
+    def very_long_last_name_generation() -> str:
         """Фамилия из 31 символа"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()
