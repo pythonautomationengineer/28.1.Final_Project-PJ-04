@@ -3,6 +3,7 @@ class CharactersGenerator:
 
     @staticmethod
     def not_latin_password_generator():
+        """Не латинский пароль из 8 символов"""
         numbers = '1234567890'
         russian_alphabet = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         special_characters = '#$%^&*'
@@ -18,6 +19,7 @@ class CharactersGenerator:
 
     @staticmethod
     def one_symbol_generator():
+        """1 символ кириллицы"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()  # 1 символ
         return first_symbol
@@ -39,6 +41,7 @@ class CharactersGenerator:
 
     @staticmethod
     def small_letter_password_generator():
+        """8 lower-символов для пароля"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
         special_characters = '#$%^&*'
@@ -53,7 +56,8 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def p_password_generator():
+    def dont_match_password_generator_1():
+        """Валидный пароль из 13 символов"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
         special_characters = '#$%^&*'
@@ -68,7 +72,8 @@ class CharactersGenerator:
         return first_symbol
 
     @staticmethod
-    def p2_password_generator():
+    def dont_match_password_generator_2():
+        """Валидный пароль из 15 символов"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
         special_characters = '#$%^&*'
@@ -84,6 +89,7 @@ class CharactersGenerator:
 
     @staticmethod
     def very_long_first_name_generation():
+        """Имя из 31 символа"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()
         for i in set(main_str):
@@ -95,6 +101,7 @@ class CharactersGenerator:
 
     @staticmethod
     def very_long_last_name_generation():
+        """Фамилия из 31 символа"""
         main_str = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
         first_symbol = set(main_str).pop().upper()
         for i in set(main_str):
