@@ -2,7 +2,7 @@ import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from settings import link, phone_valid, old_password, login, password, email_valid
+from credentials import link, phone_valid, old_password, login, password, email_valid
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.Stability import Captcha, StabilityTimes

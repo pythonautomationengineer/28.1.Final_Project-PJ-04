@@ -2,7 +2,7 @@ import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from settings import link
+from credentials import link
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Stability import StabilityTimes
 
