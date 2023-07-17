@@ -6,7 +6,8 @@ from settings import link, email_valid, password
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
-from Сlasses.Stability import Captcha, OSandUserName
+from Сlasses.Stability import Captcha, OSandUserName, HotKeys
+from Сlasses.Stability import StabilityTimes
 
 
 # запустить все тесты в этом модуле
@@ -18,19 +19,19 @@ class TestChangingDataInsideYourAccountPositive:
     @pytest.mark.xfail
     @pytest.mark.skipif(OSandUserName.os() not in OSandUserName.all_support_os,
                         reason=f'{OSandUserName.user_login()}, '
-                        f'тест выполняется только на '
-                        f'системах: '
-                        f'{", ".join(OSandUserName.all_support_os)},'
-                        f' так как'
-                        f' используются'
-                        f' горячие клавиши'
-                        f' данных ОС')
+                               f'тест выполняется только на '
+                               f'системах: '
+                               f'{", ".join(OSandUserName.all_support_os)},'
+                               f' так как'
+                               f' используются'
+                               f' горячие клавиши'
+                               f' данных ОС')
     def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
@@ -46,7 +47,7 @@ class TestChangingDataInsideYourAccountPositive:
         login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
         login_button.click()
 
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Изначальное отчество
@@ -55,13 +56,13 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
         # Явное ожидание поля с текстом 'Отчество'"
-        wait = WebDriverWait(browser, 2)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.USER_PATRONYMIC))
 
         browser.find_element(*Selectors.USER_PATRONYMIC).click()
 
         # Получение горячих клавиш для конкретной OS пользовательской машины
-        os_hotkeys = OSandUserName.hotkeys(OSandUserName.os())
+        os_hotkeys = HotKeys.hotkeys(OSandUserName.os())
 
         # Удаление старого отчества и ввод нового отчества
         browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(os_hotkeys)
@@ -71,7 +72,7 @@ class TestChangingDataInsideYourAccountPositive:
         # Кнопка сохранения ФИО
         browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
 
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
 
         # Тост-уведомление об изменении ФИО
@@ -104,7 +105,7 @@ class TestChangingDataInsideYourAccountPositive:
         browser.get(link)
 
         #  Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
@@ -121,7 +122,7 @@ class TestChangingDataInsideYourAccountPositive:
         login_button.click()
 
         # Ожидание кнопки изменения ФИО
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Текущая фамилия
@@ -137,13 +138,13 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
 
         # Явное ожидание поля с текстом 'Фамилия'"
-        wait = WebDriverWait(browser, 2)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.USER_LASTNAME))
 
         browser.find_element(*Selectors.USER_LASTNAME).click()
 
         # Получение горячих клавиш для конкретной OS пользовательской машины
-        os_hotkeys = OSandUserName.hotkeys(OSandUserName.os())
+        os_hotkeys = HotKeys.hotkeys(OSandUserName.os())
 
         # Очистить поле перед новым вводом фамилии
         browser.find_element(*Selectors.USER_LASTNAME).send_keys(os_hotkeys)
@@ -164,7 +165,7 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
 
         # Ожидание toast-уведомления об успешном изменении ФИО
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
 
         toast = browser.find_element(*Selectors.TOAST_CHANGING_NAME_LAST_NAME_PATRONYMIC)
@@ -195,7 +196,7 @@ class TestChangingDataInsideYourAccountNegative:
         browser.get(link)
 
         # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
@@ -211,14 +212,14 @@ class TestChangingDataInsideYourAccountNegative:
         login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
         login_button.click()
 
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Иконка "карандаш" для смены пароля
         browser.find_element(*Selectors.CHANGING_PASSWORD_ICON).click()
 
         # Явное ожидание поля ввода текущего пароля
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.CURRENT_PASSWORD))
 
         # Текущий пароль
@@ -236,7 +237,7 @@ class TestChangingDataInsideYourAccountNegative:
         # Сохранение нового пароля
         browser.find_element(*Selectors.PASSWORD_SAVE).click()
 
-        wait = WebDriverWait(browser, 5)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
 
         # Текст ошибки
