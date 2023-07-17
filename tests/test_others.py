@@ -1,4 +1,3 @@
-import pytest
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -14,7 +13,6 @@ class TestOthers:
     """Тесты, которые не вошли в другие модули"""
 
     @staticmethod
-    @pytest.mark.xfail
     def test_different_links(browser):
         """Отличие ссылок на Пользовательское соглашение и Политику конфиденциальности
         при переходе со страницы авторизации и отличие названий их вкладок в браузере"""
