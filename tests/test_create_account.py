@@ -35,7 +35,7 @@ class TestCreateAccountNegative:
         # Фамилия
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(""))
 
-        # email или телефон
+        # email
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
         # Пароль и подтверждение пароля
