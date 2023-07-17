@@ -26,6 +26,7 @@ class CharactersGenerator:
 
     @staticmethod
     def short_password_generator() -> str:
+        """Короткий пароль из 7 символов"""
         numbers = '1234567890'
         english_alphabet = 'abcdefghijklmnopqrstuvwxyz'
         special_characters = '#$%^&*'
