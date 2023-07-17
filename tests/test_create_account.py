@@ -277,8 +277,8 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
         # Пароли
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(Cg.p_password_generator())
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(Cg.p2_password_generator())
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(Cg.dont_match_password_generator_1())
+        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(Cg.dont_match_password_generator_2())
 
         # Кнопка "Зарегистрироваться"
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
