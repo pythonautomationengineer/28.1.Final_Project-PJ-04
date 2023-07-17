@@ -2,12 +2,14 @@ import pytest
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-from credentials import link, email_valid, password
+from credentials import password
 from Сlasses.CSS_Selectors import Selectors
+from Сlasses.Changing_data_inside_dry import changing_data_inside_your_account
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
-from Сlasses.Stability import Captcha, OSandUserName, HotKeys
+from Сlasses.Stability import OSandUserName, HotKeys
 from Сlasses.Stability import StabilityTimes
+
 
 # запустить все тесты в этом модуле
 # pytest -k 'inside' -v -s
@@ -27,27 +29,10 @@ class TestChangingDataInsideYourAccountPositive:
                                f' данных ОС')
     def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
-        browser.get(link)
 
-        # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
-        email_button.click()
-
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-        # иначе выполнится без ошибок
-        Captcha.handle_captcha(browser)
-
-        # email и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
-
-        # Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
-
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        # открытие url, явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
+        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
+        changing_data_inside_your_account(browser)
 
         # Изначальное отчество
         start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text.split()[1]
@@ -101,28 +86,10 @@ class TestChangingDataInsideYourAccountPositive:
                                f' данных ОС')
     def test_change_of_first_and_last_name(browser):
         """Изменение имени и фамилии внутри личного кабинета"""
-        browser.get(link)
 
-        #  Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
-        email_button.click()
-
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-        # иначе выполнится без ошибок
-        Captcha.handle_captcha(browser)
-
-        # email и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
-
-        #  Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
-
-        # Ожидание кнопки изменения ФИО
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        # открытие url, явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
+        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
+        changing_data_inside_your_account(browser)
 
         # Текущая фамилия
         start_last_name = browser.find_element(*Selectors.CURRENT_LAST_NAME).text
@@ -193,28 +160,10 @@ class TestChangingDataInsideYourAccountNegative:
     @pytest.mark.xfail
     def test_changing_passwords(browser):
         """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
-        browser.get(link)
 
-        # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
-        email_button.click()
-
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-        # иначе выполнится без ошибок
-        Captcha.handle_captcha(browser)
-
-        # email и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
-
-        # Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
-
-        # Ожидание кнопки изменения ФИО
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        # открытие url, явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
+        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
+        changing_data_inside_your_account(browser)
 
         # Иконка "карандаш" для смены пароля
         browser.find_element(*Selectors.CHANGING_PASSWORD_ICON).click()
