@@ -9,7 +9,6 @@ from Сlasses.FakePerson import FakePerson
 from Сlasses.Stability import Captcha, OSandUserName, HotKeys
 from Сlasses.Stability import StabilityTimes
 
-
 # запустить все тесты в этом модуле
 # pytest -k 'inside' -v -s
 class TestChangingDataInsideYourAccountPositive:
