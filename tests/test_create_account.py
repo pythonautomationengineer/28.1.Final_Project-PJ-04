@@ -7,6 +7,7 @@ from Сlasses.Characters_generator import CharactersGenerator
 from Сlasses.Characters_generator import CharactersGenerator as Cg
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
+from Сlasses.Stability import StabilityTimes
 
 
 # запустить все тесты в этом модуле
@@ -20,12 +21,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -45,7 +46,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста 'Учетная запись уже используется'
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.TEXT_ACCOUNT_RECORDS_USE_USED)
 
         assert text_information.is_displayed()
@@ -60,12 +61,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -85,14 +86,14 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         return_button = wait.until(EC.visibility_of_element_located(Selectors.RETURN_BUTTON))
 
         # Клик по кнопе возврата на страницу регистрации
         return_button.click()
 
         # Явное ожидание заголовка с текстом "Авторизация"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         h1 = wait.until(EC.visibility_of_element_located(Selectors.H1_REGISTRATION))
 
         assert h1.is_displayed()
@@ -108,12 +109,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -134,11 +135,11 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста "Длина пароля должна быть не менее 8 символов" под полем 'Пароль'"
-        WebDriverWait(browser, 3)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
         # Явное ожидание текста "Длина пароля должна быть не менее 8 символов" под полем 'Подтверждение пароля'"
-        WebDriverWait(browser, 3)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
         assert text_information.text == DataForAssert.VERY_SHORT_PASSWORD \
@@ -156,14 +157,14 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
 
         # Клик по ссылке с текстом "Зарегистрироваться"
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -185,11 +186,11 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста Пароль должен содержать хотя бы одну заглавную букву" под полем 'Пароль'"
-        WebDriverWait(browser, 2)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD)
 
         # Явное ожидание текста "Пароль должен содержать хотя бы одну заглавную букву" под полем 'Подтверждение пароля'"
-        WebDriverWait(browser, 2)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
         assert text_information.text == DataForAssert.BIG_LETTER_TEXT_IN_PASSWORD \
@@ -208,12 +209,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -235,11 +236,11 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста "Пароль должен содержать только латинские буквы" под полем 'Пароль'"
-        WebDriverWait(browser, 2)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD)
 
         # Явное ожидание текста "Пароль должен содержать только латинские буквы" под полем 'Подтверждение пароля'"
-        WebDriverWait(browser, 2)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
         assert text_information.text == DataForAssert.ONLY_LATIN_LETTER_TEXT_IN_PASSWORD \
@@ -258,12 +259,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -283,7 +284,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста "Пароли не совпадают" под полем 'Подтверждение пароля'"
-        WebDriverWait(browser, 2)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information_2 = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD_CONFIRMATION)
 
         assert text_information_2.text == DataForAssert.PASSWORDS_DO_NOT_MATCH
@@ -299,12 +300,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -325,7 +326,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста о том, что валидная длина имени от 2 до 30 символов
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.FIRST_NAME_ERROR_TEXT)
 
         assert text_information.is_displayed()
@@ -341,12 +342,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -366,7 +367,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.LAST_NAME_ERROR_TEXT)
 
         assert text_information.is_displayed()
@@ -382,12 +383,12 @@ class TestCreateAccountNegative:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -407,7 +408,7 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
 
         # Текст ошибки под полем с фамилией
         text_information = browser.find_element(*Selectors.LAST_NAME_ERROR_TEXT)
@@ -432,7 +433,7 @@ class TestCreateAccountPositive:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться"
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
@@ -481,12 +482,12 @@ class TestCreateAccountPositive:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Имя
@@ -506,7 +507,7 @@ class TestCreateAccountPositive:
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
 
         # Явное ожидание текста о том, что код подтверждения телефона был отправлен по указанному номеру
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.CONFIRMATION_PHONE_TEXT)
 
         assert text_information.is_displayed()
@@ -523,12 +524,12 @@ class TestCreateAccountPositive:
         browser.get(link)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, 7)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, 5)
+        WebDriverWait(browser, StabilityTimes.explicit_wait)
         browser.find_element(*Selectors.USER_CONCLUSION)
 
         # Ввод пароля
