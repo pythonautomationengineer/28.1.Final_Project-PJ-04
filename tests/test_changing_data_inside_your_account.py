@@ -1,5 +1,5 @@
 import pytest
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 from credentials import link, email_valid, password
@@ -32,7 +32,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Явное ожидание таба с текстом "Почта"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -48,7 +48,7 @@ class TestChangingDataInsideYourAccountPositive:
         login_button.click()
 
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Изначальное отчество
         start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text.split()[1]
@@ -57,7 +57,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Явное ожидание поля с текстом 'Отчество'"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.USER_PATRONYMIC))
+        wait.until(ec.visibility_of_element_located(Selectors.USER_PATRONYMIC))
 
         browser.find_element(*Selectors.USER_PATRONYMIC).click()
 
@@ -73,7 +73,7 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
 
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
+        wait.until(ec.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
 
         # Тост-уведомление об изменении ФИО
         toast = browser.find_element(*Selectors.TOAST_CHANGING_NAME_LAST_NAME_PATRONYMIC)
@@ -106,7 +106,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         #  Явное ожидание таба с текстом "Почта"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -123,7 +123,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Ожидание кнопки изменения ФИО
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Текущая фамилия
         start_last_name = browser.find_element(*Selectors.CURRENT_LAST_NAME).text
@@ -139,7 +139,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Явное ожидание поля с текстом 'Фамилия'"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.USER_LASTNAME))
+        wait.until(ec.visibility_of_element_located(Selectors.USER_LASTNAME))
 
         browser.find_element(*Selectors.USER_LASTNAME).click()
 
@@ -167,7 +167,7 @@ class TestChangingDataInsideYourAccountPositive:
 
         # Ожидание toast-уведомления об успешном изменении ФИО
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
+        wait.until(ec.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
 
         toast = browser.find_element(*Selectors.TOAST_CHANGING_NAME_LAST_NAME_PATRONYMIC)
         izm_fio = browser.find_element(*Selectors.TEXT_INSIDE_TOAST).text
@@ -198,7 +198,7 @@ class TestChangingDataInsideYourAccountNegative:
 
         # Явное ожидание таба с текстом "Почта"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -215,14 +215,14 @@ class TestChangingDataInsideYourAccountNegative:
 
         # Ожидание кнопки изменения ФИО
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
         # Иконка "карандаш" для смены пароля
         browser.find_element(*Selectors.CHANGING_PASSWORD_ICON).click()
 
         # Явное ожидание поля ввода текущего пароля
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.CURRENT_PASSWORD))
+        wait.until(ec.visibility_of_element_located(Selectors.CURRENT_PASSWORD))
 
         # Текущий пароль
         browser.find_element(*Selectors.CURRENT_PASSWORD).click()
@@ -240,7 +240,7 @@ class TestChangingDataInsideYourAccountNegative:
         browser.find_element(*Selectors.PASSWORD_SAVE).click()
 
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
+        wait.until(ec.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
 
         # Текст ошибки
         find_text = browser.find_element(*Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT).text

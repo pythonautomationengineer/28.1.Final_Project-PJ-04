@@ -1,4 +1,4 @@
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 from credentials import link, unused_phone, password, email_valid
@@ -22,7 +22,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -62,7 +62,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -87,14 +87,14 @@ class TestCreateAccountNegative:
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
         WebDriverWait(browser, StabilityTimes.explicit_wait)
-        return_button = wait.until(EC.visibility_of_element_located(Selectors.RETURN_BUTTON))
+        return_button = wait.until(ec.visibility_of_element_located(Selectors.RETURN_BUTTON))
 
         # Клик по кнопе возврата на страницу регистрации
         return_button.click()
 
         # Явное ожидание заголовка с текстом "Авторизация"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        h1 = wait.until(EC.visibility_of_element_located(Selectors.H1_REGISTRATION))
+        h1 = wait.until(ec.visibility_of_element_located(Selectors.H1_REGISTRATION))
 
         assert h1.is_displayed()
 
@@ -110,7 +110,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -158,7 +158,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
 
         # Клик по ссылке с текстом "Зарегистрироваться"
         registration.click()
@@ -210,7 +210,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -260,7 +260,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -301,7 +301,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -343,7 +343,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -384,7 +384,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -434,7 +434,7 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Заголовок "Регистрация"
@@ -483,7 +483,7 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
@@ -525,7 +525,7 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(EC.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
+        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
         registration.click()
 
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации

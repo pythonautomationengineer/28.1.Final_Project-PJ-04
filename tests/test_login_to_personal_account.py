@@ -1,5 +1,5 @@
 import pytest
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 from credentials import link, phone_valid, old_password, login, password, email_valid
@@ -22,7 +22,7 @@ class TestLoginPositive:
 
         # Явное ожидание таба с текстом "Телефон"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
+        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -50,7 +50,7 @@ class TestLoginPositive:
 
         # Явное ожидание таба с текстом "Почта"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
         email_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -79,7 +79,7 @@ class TestLoginPositive:
 
         # Явное ожидание таба с текстом "Логин"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        login_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_LOGIN_LOGIN))
+        login_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_LOGIN_LOGIN))
         login_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -107,7 +107,7 @@ class TestLoginPositive:
 
         # Явное ожидание таба с текстом "Телефон"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
+        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
         username_input = browser.find_element(*Selectors.USERNAME_INPUT)
@@ -131,7 +131,7 @@ class TestLoginPositive:
 
         # Явное ожидание сообщения с текстом ошибки
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        error_message = wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
+        error_message = wait.until(ec.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
 
         assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
         print()
@@ -147,7 +147,7 @@ class TestLoginPositive:
 
         # Явное ожидание таба с текстом "Почта"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         email_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -179,7 +179,7 @@ class TestLoginNegative:
 
         # Явное ожидание таба с текстом "Телефон"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(EC.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
+        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
         phone_button.click()
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
@@ -196,7 +196,7 @@ class TestLoginNegative:
 
         # Текст ошибки входа
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(EC.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
+        wait.until(ec.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
         error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
 
         assert error_message == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
