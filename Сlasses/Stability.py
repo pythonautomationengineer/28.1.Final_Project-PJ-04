@@ -50,7 +50,7 @@ class HotKeys:
     def hotkeys(user_os):
         """Горячие клавиши для очистки символов в инпутах на разных OS"""
         windows = Keys.CONTROL + "a", Keys.DELETE  # проверено, работает
-        apple = Keys.COMMAND + "a", Keys.DELETE  # возможно работает, но проверить не могу, так как нет macOS на руках
+        apple = Keys.COMMAND + "a", Keys.DELETE  # возможно сработает, но проверить не могу, так как нет macOS на руках
 
         if user_os == OSandUserName.microsoft_os:
             return windows
