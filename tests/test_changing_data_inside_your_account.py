@@ -158,6 +158,7 @@ class TestChangingDataInsideYourAccountPositive:
         # Очистить поле перед новым вводом имени
         browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(os_hotkeys)
 
+        # Ввод нового имени
         browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(
             FakePerson.generate_first_name_of_man(start_first_name))
 
@@ -212,6 +213,7 @@ class TestChangingDataInsideYourAccountNegative:
         login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
         login_button.click()
 
+        # Ожидание кнопки изменения ФИО
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(EC.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
 
