@@ -90,37 +90,6 @@ class TestLoginPositive:
 
     @staticmethod
     @pytest.mark.xfail
-    def test_email_tabs(browser):
-        """Смена таба выбора аутентификации при вводе почты в табе "Телефон"""
-        # Открытие сайта
-        LoginHelpers.current_url(browser)
-
-        # Явное ожидание таба с текстом "Телефон" и клик по нему
-        LoginHelpers.wait_tab_phone_button_and_click(browser)
-
-        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-        # иначе выполнится без ошибок
-        Captcha.handle_captcha(browser)
-
-        # Ввод валидного email и пароля
-        LoginHelpers.valid_email_and_valid_password(browser)
-
-        # Клик по кнопке "Войти"
-        LoginHelpers.login_button(browser)
-
-        # Ожидание текста ошибки входа в ЛК
-        LoginHelpers.the_text_of_the_login_error(browser)
-
-        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE)
-
-        assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
-        print()
-        print()
-        print(f'Вход в кабинет не выполнен, так как на странице появился текст ошибки "{error_message.text}". '
-              f'Смена таба не произошла.')
-
-    @staticmethod
-    @pytest.mark.xfail
     def test_phone_tabs(browser):
         """Смена таба выбора аутентификации при вводе телефона в табе 'Почта'"""
         # Открытие сайта
@@ -180,3 +149,34 @@ class TestLoginNegative:
         print()
         print(f'Появилась ошибка входа с текстом "{error_message.text}". Так как вход не может быть выполнен '
               f'с предыдущим паролем."')
+
+    @staticmethod
+    @pytest.mark.xfail
+    def test_email_tabs(browser):
+        """Смена таба выбора аутентификации при вводе почты в табе "Телефон"""
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
+
+        # Явное ожидание таба с текстом "Телефон" и клик по нему
+        LoginHelpers.wait_tab_phone_button_and_click(browser)
+
+        # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
+        # иначе выполнится без ошибок
+        Captcha.handle_captcha(browser)
+
+        # Ввод валидного email и пароля
+        LoginHelpers.valid_email_and_valid_password(browser)
+
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
+
+        # Ожидание текста ошибки входа в ЛК
+        LoginHelpers.the_text_of_the_login_error(browser)
+
+        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE)
+
+        assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
+        print()
+        print()
+        print(f'Вход в кабинет не выполнен, так как на странице появился текст ошибки "{error_message.text}". '
+              f'Смена таба не произошла.')
