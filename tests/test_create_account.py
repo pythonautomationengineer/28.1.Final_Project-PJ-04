@@ -1,14 +1,12 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-
-from credentials import link, password, email_valid, unused_phone
+from Common_actions.create_account_action_helpers import ActionHelpers
+from credentials import email_valid
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Characters_generator import CharactersGenerator
-from Сlasses.Characters_generator import CharactersGenerator as Cg
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
 from Сlasses.Stability import StabilityTimes
-from Common_actions.create_account_action_helpers import ActionHelpers
 
 
 class TestCreateAccountNegative:
@@ -18,9 +16,13 @@ class TestCreateAccountNegative:
     def test_invalid_registration(browser):
         """Регистрация по ранее используемым и действующим логином и паролем"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -30,7 +32,7 @@ class TestCreateAccountNegative:
         ActionHelpers.create_account_email_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -46,18 +48,16 @@ class TestCreateAccountNegative:
         print(f"Текст '{text_information.text}' найден на странице, значит пользователь с введенными данными уже есть")
 
     @staticmethod
-    def test_returning_to_the_home_page(browser):  # Доделать
+    def test_returning_to_the_home_page(browser):
         """Возвращение на главную страницу из модального окна с текстом 'Учетная запись уже используется'"""
-        browser.get(link)
+
+        # Открытие url
+        ActionHelpers.get_link(browser)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
-        registration.click()
-
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        WebDriverWait(browser, StabilityTimes.explicit_wait)
-        browser.find_element(*Selectors.USER_CONCLUSION)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -67,13 +67,13 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
-        WebDriverWait(browser, StabilityTimes.explicit_wait)
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         return_button = wait.until(ec.visibility_of_element_located(Selectors.RETURN_BUTTON))
 
         # Клик по кнопе возврата на страницу регистрации
@@ -94,9 +94,13 @@ class TestCreateAccountNegative:
         """Появление сообщения в форме регистрации с текстом "Длина пароля должна быть не менее 8 символов"
         под полем "Новый пароль" при вводе пароля из 7 символов"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -134,9 +138,13 @@ class TestCreateAccountNegative:
         """Появление сообщения в форме регистрации с текстом "Пароль должен содержать хотя бы одну заглавную букву"
         под полем "Пароль" и "Подтверждение пароля" при введении 8 символов: маленьких букв и цифр"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -146,10 +154,7 @@ class TestCreateAccountNegative:
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Пароли из lower-символов
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(
-            CharactersGenerator.small_letter_password_generator())
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
-            CharactersGenerator.small_letter_password_generator())
+        ActionHelpers.only_lower_password(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -176,9 +181,13 @@ class TestCreateAccountNegative:
         """Появление сообщения в форме регистрации с текстом "Пароль должен содержать только латинские буквы" под полем
         "Пароль" и "Подтверждение пароля при введении 9 символов кириллицы"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -188,10 +197,7 @@ class TestCreateAccountNegative:
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод паролей не из латинских символов
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(
-            CharactersGenerator.not_latin_password_generator())
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
-            CharactersGenerator.not_latin_password_generator())
+        ActionHelpers.latin_password(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -218,9 +224,13 @@ class TestCreateAccountNegative:
         """Выводится "Пароли не совпадают" под полем "Подтверждение пароля", если пользователь ввел разные пароли
         при регистрации"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -230,8 +240,7 @@ class TestCreateAccountNegative:
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод валидных паролей, но которые не совпадают между собой
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(Cg.dont_match_password_generator_1())
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(Cg.dont_match_password_generator_2())
+        ActionHelpers.dont_match_password(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -251,9 +260,13 @@ class TestCreateAccountNegative:
     def test_not_valid_registration(browser):
         """Регистрация со всеми валидными полями кроме имени (слишком длинное имя)"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Имя
         browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(
@@ -266,7 +279,7 @@ class TestCreateAccountNegative:
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -285,24 +298,25 @@ class TestCreateAccountNegative:
     @staticmethod
     def test_valid_registration(browser):
         """Регистрация со всеми валидными полями кроме фамилии (слишком длинная фамилия)"""
-        browser.get(link)
+        # Открытие url
+        ActionHelpers.get_link(browser)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
-        # Имя
-        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
+        # Сгенерированное имя
+        ActionHelpers.generate_first_name(browser)
 
-        # Фамилия
-        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.very_long_last_name_generation())
+        # Сгенерированная фамилия из 31 символа
+        ActionHelpers.very_long_last_name(browser)
 
         # Ввод неиспользуемого телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -321,23 +335,22 @@ class TestCreateAccountNegative:
     @staticmethod
     def test_valid_registration_too(browser):
         """Регистрация со всеми валидными полями кроме фамилии и имени (слишком короткая фамилия и имя)"""
-        browser.get(link)
+        # Открытие url
+        ActionHelpers.get_link(browser)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
-        # Имя
-        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
-
-        # Фамилия
-        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
+        # Ввод имени и фамилии из 1 символа
+        ActionHelpers.one_and_one_symbol_first_and_last_name(browser)
 
         # Ввод неиспользуемого телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -365,46 +378,15 @@ class TestCreateAccountPositive:
     @staticmethod
     def test_registration(browser):
         """Наличие всех необходимых элементов регистрации пользователя на странице"""
-        browser.get(link)
+
+        # Открытие url
+        ActionHelpers.get_link(browser)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        registration = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_THE_TEXT_REGISTER))
-        registration.click()
+        ActionHelpers.registration_link(browser)
 
-        # Заголовок "Регистрация"
-        h1 = browser.find_element(*Selectors.H1_REGISTRATION)
-
-        # Заголовок "Личные данные"
-        reg_p = browser.find_element(*Selectors.HEADING_PERSONAL_DATA)
-
-        # Имя
-        first_name_form = browser.find_element(*Selectors.FIRST_NAME_INPUT)
-
-        # Фамилия
-        last_name_form = browser.find_element(*Selectors.LAST_NAME_INPUT)
-
-        # Регион
-        region = browser.find_element(*Selectors.REGION_INPUT)
-
-        # Заголовок "Данные для входа"
-        p_data = browser.find_element(*Selectors.HEADER_LOGIN_DETAILS)
-
-        # email
-        email_or_phone = browser.find_element(*Selectors.ADDRESS_INPUT)
-
-        # Пароль и подтверждение пароля
-        password_input = browser.find_element(*Selectors.REGISTRATION_PASSWORD)
-        password_confirm = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM)
-
-        # Пользовательское соглашение
-        user_agreement = browser.find_element(*Selectors.USER_CONCLUSION)
-
-        elements = [h1, reg_p, first_name_form, last_name_form, region, p_data, email_or_phone, password_input,
-                    password_confirm, user_agreement]
-
-        for element in elements:
-            assert element.is_displayed()
+        # Все необходимые поля и ссылки страницы регистрации
+        ActionHelpers.all_registration_elements(browser)
 
         print()
         print()
@@ -415,9 +397,13 @@ class TestCreateAccountPositive:
         """Отправка сайтом кода подтверждения регистрации при всех введенных валидных данных, которые ранее
         не были использованы"""
 
+        # Открытие url
+        ActionHelpers.get_link(browser)
+
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
         # Ввод имени
         # Ввод фамилии
@@ -427,7 +413,7 @@ class TestCreateAccountPositive:
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        ActionHelpers.valid_passwords(browser)
+        ActionHelpers.valid_password_and_password_confirm(browser)
 
         # Кнопка "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
@@ -447,20 +433,23 @@ class TestCreateAccountPositive:
     def test_eye_icon_on_password(browser):
         """Элемент <svg>, скрывающий видимость пароля, по клику открывает видимость пароля,
         а при повторном клике скрывает обратно"""
-        browser.get(link)
+
+        # Открытие URL
+        ActionHelpers.get_link(browser)
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
+        ActionHelpers.registration_link(browser)
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        ActionHelpers.registration_explicit_wait(browser)
+        ActionHelpers.registration_button(browser)
 
-        # Ввод пароля
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
+        # Ввод валидного пароля
+        ActionHelpers.only_valid_password(browser)
 
         # Изначальный атрибут элемента скрытия/открытия пароля
         start_attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).get_attribute("type")
 
         # Клик по иконке "глаз" для изменения атрибута данного элемента
-        browser.find_element(*Selectors.EYE_ICON_PASSWORD).click()
+        ActionHelpers.eye_icon_password(browser)
 
         # Атрибут элемента скрытия/открытия пароля после клика
         end_attr = browser.find_element(*Selectors.REGISTRATION_PASSWORD).get_attribute("type")
