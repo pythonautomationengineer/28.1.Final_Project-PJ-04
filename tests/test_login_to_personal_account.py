@@ -1,15 +1,10 @@
 import pytest
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.ui import WebDriverWait
 
-from credentials import link, phone_valid, old_password, login, password, email_valid
+from Common_actions.login_to_personal_account_action_helpers import LoginHelpers
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.Stability import Captcha, StabilityTimes
+from Сlasses.Stability import Captcha
 
-
-# запустить все тесты в этом модуле
-# pytest -k 'personal' -v -s
 
 class TestLoginPositive:
     """Позитивные тесты, которые проверяют вход в личный кабинет"""
@@ -18,23 +13,22 @@ class TestLoginPositive:
     @pytest.mark.xfail
     def test_login_with_valid_phone_and_password(browser):
         """Вход в личный кабинет по валидному телефону и паролю"""
-        browser.get(link)
 
-        # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
-        phone_button.click()
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
+
+        # Явное ожидание таба с текстом "Телефон" и клик по нему
+        LoginHelpers.wait_tab_phone_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # Телефон и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
+        # Ввод валидного телефона и валидного пароля
+        LoginHelpers.valid_phone_and_valid_password(browser)
 
-        # Кнопка "Войти"
-        browser.find_element(*Selectors.LOGIN_BUTTON).click()
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
 
         assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
 
@@ -46,24 +40,21 @@ class TestLoginPositive:
     @pytest.mark.xfail
     def test_login_with_valid_email_and_password(browser):
         """Вход в личный кабинет по валидному email и паролю"""
-        browser.get(link)
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
 
-        # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
-        email_button.click()
+        # Явное ожидание таба с текстом "Почта" и клик по нему
+        LoginHelpers.wait_tab_email_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # email и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
+        # Ввод валидного email и пароля
+        LoginHelpers.valid_email_and_valid_password(browser)
 
-        # Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
 
         assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
 
@@ -75,23 +66,21 @@ class TestLoginPositive:
     @pytest.mark.xfail
     def test_login_with_valid_login_and_password(browser):
         """Вход в личный кабинет по валидному логину и паролю"""
-        browser.get(link)
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
 
-        # Явное ожидание таба с текстом "Логин"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        login_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_LOGIN_LOGIN))
-        login_button.click()
+        # Явное ожидание таба с текстом "Логин" и клик по нему
+        LoginHelpers.wait_tab_login_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # Логин и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(login)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
+        # Ввод валидного логина и пароля
+        LoginHelpers.valid_login_and_valid_password(browser)
 
-        # Кнопка "Войти"
-        browser.find_element(*Selectors.LOGIN_BUTTON).click()
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
 
         assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
 
@@ -103,35 +92,26 @@ class TestLoginPositive:
     @pytest.mark.xfail
     def test_email_tabs(browser):
         """Смена таба выбора аутентификации при вводе почты в табе "Телефон"""
-        browser.get(link)
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
 
-        # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
-        phone_button.click()
-
-        username_input = browser.find_element(*Selectors.USERNAME_INPUT)
-        password_input = browser.find_element(*Selectors.PASSWORD_INPUT)
+        # Явное ожидание таба с текстом "Телефон" и клик по нему
+        LoginHelpers.wait_tab_phone_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # Ввод email
-        username_input.send_keys(email_valid)
-
-        # Клик по полю "Пароль"
-        password_input.click()
-
-        # Ввод пароля в поле "Пароль"
-        password_input.send_keys(password)
+        # Ввод валидного email и пароля
+        LoginHelpers.valid_email_and_valid_password(browser)
 
         # Клик по кнопке "Войти"
-        browser.find_element(*Selectors.LOGIN_BUTTON).click()
+        LoginHelpers.login_button(browser)
 
-        # Явное ожидание сообщения с текстом ошибки
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        error_message = wait.until(ec.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
+        # Ожидание текста ошибки входа в ЛК
+        LoginHelpers.the_text_of_the_login_error(browser)
+
+        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE)
 
         assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
         print()
@@ -143,23 +123,21 @@ class TestLoginPositive:
     @pytest.mark.xfail
     def test_phone_tabs(browser):
         """Смена таба выбора аутентификации при вводе телефона в табе 'Почта'"""
-        browser.get(link)
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
 
-        # Явное ожидание таба с текстом "Почта"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
-        email_button.click()
+        # Явное ожидание таба с текстом "Телефон" и клик по нему
+        LoginHelpers.wait_tab_email_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # Телефон и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
+        # Ввод валидного телефона и валидного пароля
+        LoginHelpers.valid_phone_and_valid_password(browser)
 
-        # Кнопка "Войти"
-        browser.find_element(*Selectors.LOGIN_BUTTON).click()
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
 
         assert browser.find_element(*Selectors.CREDENTIALS).text == DataForAssert.CREDENTIALS
         print()
@@ -175,32 +153,30 @@ class TestLoginNegative:
     @pytest.mark.xfail
     def test_login_with_old_password(browser):
         """Вход в ЛК с предыдущем паролем"""
-        browser.get(link)
+        # Открытие сайта
+        LoginHelpers.current_url(browser)
 
-        # Явное ожидание таба с текстом "Телефон"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        phone_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_PHONE_BUTTON))
-        phone_button.click()
+        # Явное ожидание таба с текстом "Телефон" и клик по нему
+        LoginHelpers.wait_tab_email_button_and_click(browser)
 
         # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
         # иначе выполнится без ошибок
         Captcha.handle_captcha(browser)
 
-        # Телефон и пароль
-        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(phone_valid)
-        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(old_password)
+        # Ввод валидного телефона и устаревшего пароля
+        LoginHelpers.valid_email_and_not_valid_password(browser)
 
-        # Кнопка "Войти"
-        login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-        login_button.click()
+        # Клик по кнопке "Войти"
+        LoginHelpers.login_button(browser)
 
-        # Текст ошибки входа
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.FORM_ERROR_MESSAGE))
-        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE).text
+        # Ожидание текста ошибки входа в ЛК
+        LoginHelpers.the_text_of_the_login_error(browser)
 
-        assert error_message == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
+        error_message = browser.find_element(*Selectors.FORM_ERROR_MESSAGE)
+
+        assert error_message.text == DataForAssert.ERROR_LOGIN_AND_PASSWORD_TEXT
 
         print()
         print()
-        print(f'Появилась ошибка входа с текстом "{error_message}". Вход не может быть выполнен с предыдущим паролем."')
+        print(f'Появилась ошибка входа с текстом "{error_message.text}". Так как вход не может быть выполнен '
+              f'с предыдущим паролем."')
