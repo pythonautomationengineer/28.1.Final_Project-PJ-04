@@ -8,11 +8,9 @@ from Сlasses.Characters_generator import CharactersGenerator as Cg
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
 from Сlasses.Stability import StabilityTimes
-from Сlasses.duplicate_code import DuplicateCode
+from Common_actions.create_account_action_helpers import ActionHelpers
 
 
-# запустить все тесты в этом модуле
-#  pytest -k 'create' -v -s
 class TestCreateAccountNegative:
     """Негативные тесты, связанные с регистрацией"""
 
@@ -22,20 +20,20 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод валидного email
-        DuplicateCode.create_account_email_dry(browser)
+        ActionHelpers.create_account_email_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста 'Учетная запись уже используется'
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -63,16 +61,16 @@ class TestCreateAccountNegative:
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # email
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -98,14 +96,14 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод невалидного телефона
-        DuplicateCode.create_account_unused_phone_dry(browser)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод паролей короче необходимых
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(CharactersGenerator.short_password_generator())
@@ -113,7 +111,7 @@ class TestCreateAccountNegative:
             CharactersGenerator.short_password_generator())
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Длина пароля должна быть не менее 8 символов" под полем 'Пароль'"
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -138,14 +136,14 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод невалидного телефона
-        DuplicateCode.create_account_unused_phone_dry(browser)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Пароли из lower-символов
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(
@@ -154,7 +152,7 @@ class TestCreateAccountNegative:
             CharactersGenerator.small_letter_password_generator())
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста Пароль должен содержать хотя бы одну заглавную букву" под полем 'Пароль'"
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -180,14 +178,14 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод невалидного телефона
-        DuplicateCode.create_account_unused_phone_dry(browser)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод паролей не из латинских символов
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(
@@ -195,8 +193,8 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
             CharactersGenerator.not_latin_password_generator())
 
-        # Клик по кнопке "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        # Кнопка "Зарегистрироваться"
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Пароль должен содержать только латинские буквы" под полем 'Пароль'"
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -222,21 +220,21 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод невалидного телефона
-        DuplicateCode.create_account_unused_phone_dry(browser)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод валидных паролей, но которые не совпадают между собой
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(Cg.dont_match_password_generator_1())
         browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(Cg.dont_match_password_generator_2())
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Пароли не совпадают" под полем 'Подтверждение пароля'"
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -255,7 +253,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Имя
         browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(
@@ -265,13 +263,13 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
 
         # Ввод неиспользуемого телефона
-        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
-        # Кнопка регистрации
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        # Кнопка "Зарегистрироваться"
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина имени от 2 до 30 символов
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -291,7 +289,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Имя
         browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(FakePerson.generate_first_name_of_man(''))
@@ -300,13 +298,14 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.very_long_last_name_generation())
 
         # Ввод неиспользуемого телефона
-        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+        ActionHelpers.create_account_unused_phone_dry(browser)
+
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
-        # Кнопка регистрации
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        # Кнопка "Зарегистрироваться"
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -326,7 +325,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Имя
         browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
@@ -335,13 +334,13 @@ class TestCreateAccountNegative:
         browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(CharactersGenerator.one_symbol_generator())
 
         # Ввод неиспользуемого телефона
-        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
-        # Кнопка регистрации
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        # Кнопка "Зарегистрироваться"
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -418,20 +417,20 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод имени
         # Ввод фамилии
-        DuplicateCode.generate_first_name_and_last_name(browser)
+        ActionHelpers.generate_first_name_and_last_name(browser)
 
         # Ввод невалидного телефона
-        DuplicateCode.create_account_unused_phone_dry(browser)
+        ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Валидный пароль и подтверждение пароля
-        DuplicateCode.valid_passwords(browser)
+        ActionHelpers.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
-        browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
+        ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что код подтверждения телефона был отправлен по указанному номеру
         WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -452,7 +451,7 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
-        DuplicateCode.registration_explicit_wait(browser)
+        ActionHelpers.registration_explicit_wait(browser)
 
         # Ввод пароля
         browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
