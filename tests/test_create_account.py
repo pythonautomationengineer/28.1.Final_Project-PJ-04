@@ -31,9 +31,8 @@ class TestCreateAccountNegative:
         # Ввод валидного email
         DuplicateCode.create_account_email_dry(browser)
 
-        # Пароль и подтверждение пароля
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
@@ -69,9 +68,8 @@ class TestCreateAccountNegative:
         # email
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
 
-        # Пароль и подтверждение пароля
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
@@ -269,9 +267,8 @@ class TestCreateAccountNegative:
         # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-        # Пароли
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка регистрации
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
@@ -305,9 +302,8 @@ class TestCreateAccountNegative:
         # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-        # Пароли
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка регистрации
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
@@ -341,9 +337,8 @@ class TestCreateAccountNegative:
         # Ввод неиспользуемого телефона
         browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(unused_phone)
 
-        # Пароли
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка регистрации
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
@@ -432,9 +427,8 @@ class TestCreateAccountPositive:
         # Ввод невалидного телефона
         DuplicateCode.create_account_unused_phone_dry(browser)
 
-        # Пароль и подтверждение пароля
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(password)
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(password)
+        # Валидный пароль и подтверждение пароля
+        DuplicateCode.valid_passwords(browser)
 
         # Кнопка "Зарегистрироваться"
         browser.find_element(*Selectors.THE_REGISTER_BUTTON).click()
