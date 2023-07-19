@@ -1,39 +1,40 @@
-
-from Сlasses.Stability import Captcha
-
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-from credentials import link, unused_phone, password, email_valid
+from credentials import link, password, email_valid
 from Сlasses.CSS_Selectors import Selectors
-
 from Сlasses.Stability import StabilityTimes
 
 
-def get_link(browser):
-    """Открытие url"""
-    browser.get(link)
+class ChangingDataInsideYourAccount:
+    """Необходимые модули, связанные с изменением данных внутри личного кабинета"""
 
+    @staticmethod
+    def get_link(browser):
+        """Открытие url"""
+        browser.get(link)
 
-def changing_data_inside_your_account_dry(browser):
-    browser.get(link)
+    @staticmethod
+    def wait_email_tab(browser):
+        """Явное ожидание таба с текстом "Почта" и клик по нему"""
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
+        email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
+        email_button.click()
 
-    # Явное ожидание таба с текстом "Почта"
-    wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-    email_button = wait.until(ec.visibility_of_element_located(Selectors.TAB_EMAIL_BUTTON))
-    email_button.click()
-    # Если каптча присутствует на странице, то функция handle_captcha выдаст AssertionError,
-    # иначе выполнится без ошибок
-    Captcha.handle_captcha(browser)
+    @staticmethod
+    def valid_email_and_valid_password(browser):
+        """Ввод валидного email и пароля"""
+        browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
+        browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
 
-    # email и пароль
-    browser.find_element(*Selectors.USERNAME_INPUT).send_keys(email_valid)
-    browser.find_element(*Selectors.PASSWORD_INPUT).send_keys(password)
+    @staticmethod
+    def login_button(browser):
+        """Клик по кнопке 'Войти'"""
+        login_btn = browser.find_element(*Selectors.LOGIN_BUTTON)
+        login_btn.click()
 
-    # Кнопка "Войти"
-    login_button = browser.find_element(*Selectors.LOGIN_BUTTON)
-    login_button.click()
-
-    # Ожидание кнопки изменения ФИО
-    wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-    wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
+    @staticmethod
+    def wait_button_changing_full_name(browser):
+        """Ожидание кнопки изменения ФИО"""
+        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
+        wait.until(ec.visibility_of_element_located(Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC))
