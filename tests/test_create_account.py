@@ -1,11 +1,9 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
+
 from Common_actions.create_account_action_helpers import ActionHelpers
-from credentials import email_valid
 from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Characters_generator import CharactersGenerator
 from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.FakePerson import FakePerson
 from Сlasses.Stability import StabilityTimes
 
 
@@ -21,20 +19,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод валидного email
         ActionHelpers.create_account_email_dry(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста 'Учетная запись уже используется'
@@ -56,20 +57,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
 
-        # email
-        browser.find_element(*Selectors.ADDRESS_INPUT).send_keys(email_valid)
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного email
+        ActionHelpers.create_account_email_dry(browser)
+
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание кнопки "Войти" в модальном окне под заголовком 'Учетная запись уже используется'
@@ -99,22 +103,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод невалидного телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
         # Ввод паролей короче необходимых
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD).send_keys(CharactersGenerator.short_password_generator())
-        browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM).send_keys(
-            CharactersGenerator.short_password_generator())
+        ActionHelpers.very_short_passwords(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Длина пароля должна быть не менее 8 символов" под полем 'Пароль'"
@@ -143,20 +148,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод невалидного телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-        # Пароли из lower-символов
+        # Ввод пароля и подтверждение пароля из lower-символов
         ActionHelpers.only_lower_password(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста Пароль должен содержать хотя бы одну заглавную букву" под полем 'Пароль'"
@@ -186,12 +194,15 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод невалидного телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
@@ -199,7 +210,7 @@ class TestCreateAccountNegative:
         # Ввод паролей не из латинских символов
         ActionHelpers.latin_password(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Пароль должен содержать только латинские буквы" под полем 'Пароль'"
@@ -229,12 +240,15 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод невалидного телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
@@ -242,7 +256,7 @@ class TestCreateAccountNegative:
         # Ввод валидных паролей, но которые не совпадают между собой
         ActionHelpers.dont_match_password(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста "Пароли не совпадают" под полем 'Подтверждение пароля'"
@@ -265,23 +279,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Имя
-        browser.find_element(*Selectors.FIRST_NAME_INPUT).send_keys(
-            CharactersGenerator.very_long_first_name_generation())
+        # Ввод имени из 31 символа
+        ActionHelpers.very_long_first_name(browser)
 
-        # Фамилия
-        browser.find_element(*Selectors.LAST_NAME_INPUT).send_keys(FakePerson.generate_last_name_of_man(''))
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод неиспользуемого телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина имени от 2 до 30 символов
@@ -303,22 +317,23 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Сгенерированное имя
+        # Ввод валидного имени
         ActionHelpers.generate_first_name(browser)
 
-        # Сгенерированная фамилия из 31 символа
+        # Ввод сгенерированной фамилии из 31 символа
         ActionHelpers.very_long_last_name(browser)
 
         # Ввод неиспользуемого телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
@@ -340,6 +355,7 @@ class TestCreateAccountNegative:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
@@ -349,10 +365,10 @@ class TestCreateAccountNegative:
         # Ввод неиспользуемого телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что валидная длина фамилии от 2 до 30 символов
@@ -385,8 +401,39 @@ class TestCreateAccountPositive:
         # Явное ожидание ссылки с текстом "Зарегистрироваться"
         ActionHelpers.registration_link(browser)
 
-        # Все необходимые поля и ссылки страницы регистрации
-        ActionHelpers.all_registration_elements(browser)
+        # Заголовок "Регистрация"
+        h1 = browser.find_element(*Selectors.H1_REGISTRATION)
+
+        # Заголовок "Личные данные"
+        reg_p = browser.find_element(*Selectors.HEADING_PERSONAL_DATA)
+
+        # Имя
+        first_name_form = browser.find_element(*Selectors.FIRST_NAME_INPUT)
+
+        # Фамилия
+        last_name_form = browser.find_element(*Selectors.LAST_NAME_INPUT)
+
+        # Регион
+        region = browser.find_element(*Selectors.REGION_INPUT)
+
+        # Заголовок "Данные для входа"
+        p_data = browser.find_element(*Selectors.HEADER_LOGIN_DETAILS)
+
+        # email
+        email_or_phone = browser.find_element(*Selectors.ADDRESS_INPUT)
+
+        # Поля пароля и подтверждение пароля
+        password_input = browser.find_element(*Selectors.REGISTRATION_PASSWORD)
+        password_confirm = browser.find_element(*Selectors.REGISTRATION_PASSWORD_CONFIRM)
+
+        # Пользовательское соглашение
+        user_agreement = browser.find_element(*Selectors.USER_CONCLUSION)
+
+        elements = [h1, reg_p, first_name_form, last_name_form, region, p_data, email_or_phone, password_input,
+                    password_confirm, user_agreement]
+
+        for element in elements:
+            assert element.is_displayed()
 
         print()
         print()
@@ -402,20 +449,23 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
-        # Ввод имени
-        # Ввод фамилии
-        ActionHelpers.generate_first_name_and_last_name(browser)
+        # Ввод валидного имени
+        ActionHelpers.generate_first_name(browser)
+
+        # Ввод валидной фамилии
+        ActionHelpers.generate_last_name(browser)
 
         # Ввод невалидного телефона
         ActionHelpers.create_account_unused_phone_dry(browser)
 
-        # Валидный пароль и подтверждение пароля
+        # Ввод валидного пароля и подтверждение пароля
         ActionHelpers.valid_password_and_password_confirm(browser)
 
-        # Кнопка "Зарегистрироваться"
+        # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
         # Явное ожидание текста о том, что код подтверждения телефона был отправлен по указанному номеру
@@ -439,6 +489,7 @@ class TestCreateAccountPositive:
 
         # Явное ожидание ссылки с текстом "Зарегистрироваться" на главной странице
         ActionHelpers.registration_link(browser)
+        
         # Явное ожидание кнопки с текстом "Зарегистрироваться" на странице регистрации
         ActionHelpers.registration_button(browser)
 
