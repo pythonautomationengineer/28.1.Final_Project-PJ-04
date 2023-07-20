@@ -2,13 +2,12 @@ import pytest
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-from Common_actions import changing_data_inside_your_account_action_helpers as cd
-from credentials import password
+from Common_actions.changing_data_inside_your_account_action_helpers import ChangingDataInsideYourAccount as Cd
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
 from Сlasses.FakePerson import FakePerson
 from Сlasses.Stability import OSandUserName, HotKeys
-from Сlasses.Stability import StabilityTimes
+from Сlasses.Stability import StabilityTimes, Captcha
 
 
 class TestChangingDataInsideYourAccountPositive:
@@ -28,25 +27,35 @@ class TestChangingDataInsideYourAccountPositive:
     def test_adding_a_patronymic(browser):
         """Добавление отчества внутри личного кабинета"""
 
-        # открытие url
-        cd.get_link(browser)
+        # Открытие url
+        Cd.get_link(browser)
 
-        # явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
-        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
-        cd.changing_data_inside_your_account_dry(browser)
+        # Явное ожидание таба почта
+        Cd.wait_email_tab(browser)
+
+        # Проверка наличия/отсутствия каптчи
+        Captcha.handle_captcha(browser)
+
+        # Ввод email и пароля
+        Cd.valid_email_and_valid_password(browser)
+
+        # Клик по кнопке "Войти"
+        Cd.login_button(browser)
+
+        # Явное ожидание кнопки изменения ФИО
+        Cd.wait_button_changing_full_name(browser)
 
         # Изначальное отчество
         start_patronymic_name = browser.find_element(*Selectors.CURRENT_FIRST_NAME_AND_MIDDLE_NAME).text.split()[1]
 
         # Клик на иконку изменения ФИО
-        browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
+        Cd.button_changing_full_name(browser)
 
         # Явное ожидание поля с текстом 'Отчество'"
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.USER_PATRONYMIC))
+        Cd.user_patronymic_input(browser)
 
         # Клик по полю отчества
-        browser.find_element(*Selectors.USER_PATRONYMIC).click()
+        Cd.click_on_user_patronymic_input(browser)
 
         # Получение горячих клавиш для конкретной OS пользовательской машины
         os_hotkeys = HotKeys.hotkeys(OSandUserName.os())
@@ -56,9 +65,10 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.USER_PATRONYMIC).send_keys(
             FakePerson.generate_patronymic_name_of_man(start_patronymic_name))
 
-        # Кнопка сохранения ФИО
-        browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
+        # Клик по кнопке сохранения ФИО
+        Cd.user_full_name_editor_save(browser)
 
+        # Явное ожидание тост-уведомления
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(ec.visibility_of_element_located(Selectors.TEXT_INSIDE_TOAST))
 
@@ -90,12 +100,23 @@ class TestChangingDataInsideYourAccountPositive:
     def test_change_of_first_and_last_name(browser):
         """Изменение имени и фамилии внутри личного кабинета"""
 
-        # открытие url
-        cd.get_link(browser)
+        # Открытие url
+        Cd.get_link(browser)
 
-        # явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
-        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
-        cd.changing_data_inside_your_account_dry(browser)
+        # Явное ожидание таба почта
+        Cd.wait_email_tab(browser)
+
+        # Проверка наличия/отсутствия каптчи
+        Captcha.handle_captcha(browser)
+
+        # Ввод email и пароля
+        Cd.valid_email_and_valid_password(browser)
+
+        # Клик по кнопке "Войти"
+        Cd.login_button(browser)
+
+        # Явное ожидание кнопки изменения ФИО
+        Cd.wait_button_changing_full_name(browser)
 
         # Текущая фамилия
         start_last_name = browser.find_element(*Selectors.CURRENT_LAST_NAME).text
@@ -107,14 +128,14 @@ class TestChangingDataInsideYourAccountPositive:
         start_first_name = start_first_name_and_middle_name.split()[0]
 
         # Клик по кнопке изменения ФИО
-        browser.find_element(*Selectors.BUTTON_CHANGING_NAME_LAST_NAME_PATRONYMIC).click()
+        Cd.button_changing_full_name(browser)
 
         # Явное ожидание поля с текстом 'Фамилия'"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(ec.visibility_of_element_located(Selectors.USER_LASTNAME))
 
         # Клик по полю фамилии
-        browser.find_element(*Selectors.USER_LASTNAME).click()
+        Cd.click_on_user_last_name_input(browser)
 
         # Получение горячих клавиш для конкретной OS пользовательской машины
         os_hotkeys = HotKeys.hotkeys(OSandUserName.os())
@@ -127,7 +148,7 @@ class TestChangingDataInsideYourAccountPositive:
             FakePerson.generate_last_name_of_man(start_last_name))
 
         # Клик по полю имени
-        browser.find_element(*Selectors.USER_FIRSTNAME).click()
+        Cd.click_on_user_first_name_input(browser)
 
         # Очистить поле перед новым вводом имени
         browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(os_hotkeys)
@@ -136,8 +157,8 @@ class TestChangingDataInsideYourAccountPositive:
         browser.find_element(*Selectors.USER_FIRSTNAME).send_keys(
             FakePerson.generate_first_name_of_man(start_first_name))
 
-        # Сохранение нового ФИО
-        browser.find_element(*Selectors.USER_CONTACTS_EDITOR_SAVE).click()
+        # Клик по кнопке сохранения ФИО
+        Cd.user_full_name_editor_save(browser)
 
         # Ожидание toast-уведомления об успешном изменении ФИО
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
@@ -169,35 +190,43 @@ class TestChangingDataInsideYourAccountNegative:
     def test_changing_passwords(browser):
         """Невозможность изменения старого пароля на новый, если он полностью совпадает со старым"""
 
-        # открытие url
-        cd.get_link(browser)
+        # Открытие url
+        Cd.get_link(browser)
 
-        # явное ожидание таба почта, проверка наличия/отсутствия каптчи, ввод email и пароль,
-        # клик по кнопке "Войти", явное ожидание кнопки изменения ФИО
-        cd.changing_data_inside_your_account_dry(browser)
+        # Явное ожидание таба почта
+        Cd.wait_email_tab(browser)
 
-        # Иконка "карандаш" для смены пароля
-        browser.find_element(*Selectors.CHANGING_PASSWORD_ICON).click()
+        # Проверка наличия/отсутствия каптчи
+        Captcha.handle_captcha(browser)
+
+        # Ввод email и пароля
+        Cd.valid_email_and_valid_password(browser)
+
+        # Клик по кнопке "Войти"
+        Cd.login_button(browser)
+
+        # Явное ожидание кнопки изменения ФИО
+        Cd.wait_button_changing_full_name(browser)
+
+        # Клик по иконке "карандаш" для смены пароля
+        Cd.click_on_changing_password_icon(browser)
 
         # Явное ожидание поля ввода текущего пароля
-        wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        wait.until(ec.visibility_of_element_located(Selectors.CURRENT_PASSWORD))
+        Cd.wait_current_password(browser)
 
         # Ввод текущего пароля
-        browser.find_element(*Selectors.CURRENT_PASSWORD).click()
-        browser.find_element(*Selectors.CURRENT_PASSWORD).send_keys(password)
+        Cd.send_current_password(browser)
 
         # Ввод текущего пароля в поле для нового пароля
-        browser.find_element(*Selectors.NEW_PASSWORD).click()
-        browser.find_element(*Selectors.NEW_PASSWORD).send_keys(password)
+        Cd.send_old_password_in_new_password_input(browser)
 
-        # Подтверждение пароля
-        browser.find_element(*Selectors.CONFIRM_PASSWORD).click()
-        browser.find_element(*Selectors.CONFIRM_PASSWORD).send_keys(password)
+        # Ввод текущего пароля в поле подтверждения нового пароля
+        Cd.send_current_password_in_input_new_confirm_password(browser)
 
-        # Сохранение пароля
-        browser.find_element(*Selectors.PASSWORD_SAVE).click()
+        # Клик по кнопке сохранения пароля
+        Cd.click_on_password_save_button(browser)
 
+        # Ожидание текста ошибки
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
         wait.until(ec.visibility_of_element_located(Selectors.USER_PASSWORD_EDITOR_ERROR_TEXT))
 
