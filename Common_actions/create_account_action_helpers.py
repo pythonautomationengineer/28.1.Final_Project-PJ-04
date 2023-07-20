@@ -11,7 +11,7 @@ from Сlasses.Stability import StabilityTimes
 
 
 class ActionHelpers:
-
+    """Необходимые методы, связанные с созданием аккаунта"""
     @staticmethod
     def get_link(browser):
         """Открытие url"""
