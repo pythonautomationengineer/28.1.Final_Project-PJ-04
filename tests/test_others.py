@@ -6,9 +6,6 @@ from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Stability import StabilityTimes
 
 
-# запустить все тесты в этом модуле
-# pytest -k 'other' -v -s
-
 class TestOthers:
     """Тесты, которые не вошли в другие модули"""
 
