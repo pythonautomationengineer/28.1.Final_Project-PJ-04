@@ -8,6 +8,7 @@ from Сlasses.Stability import StabilityTimes
 
 
 class LoginHelpers:
+    """Методы, необходимые для логина в личный кабинет"""
     @staticmethod
     def current_url(browser):
         """Открытие сайта"""
