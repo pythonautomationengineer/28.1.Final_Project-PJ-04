@@ -1,6 +1,5 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-
 from credentials import link
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Stability import StabilityTimes
@@ -20,8 +19,8 @@ class TestOthers:
 
         # Явное ожидание ссылки с текстом "Политикой конфиденциальности"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        link_1 = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
-        link_1.click()
+        link_2 = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_TEXT_PRIVACY_POLICY))
+        link_2.click()
 
         handles = browser.window_handles
 
@@ -47,8 +46,8 @@ class TestOthers:
 
         # Явное ожидание ссылки с текстом "Пользовательским соглашением"
         wait = WebDriverWait(browser, StabilityTimes.explicit_wait)
-        link_1 = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_TEXT_USER_AGREEMENT))
-        link_1.click()
+        link_2 = wait.until(ec.visibility_of_element_located(Selectors.LINK_WITH_TEXT_USER_AGREEMENT))
+        link_2.click()
 
         handles = browser.window_handles
 
