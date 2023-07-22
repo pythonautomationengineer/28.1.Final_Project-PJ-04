@@ -105,8 +105,8 @@ Windows 11, Версия 22H2
 
 ##### Запуск тестов в модуле test_changing_data_inside_your_account.py
 Способ 1. Перейти в терминале в папку **tests** и выполнить команду pytest -v test_changing_data_inside_your_account.py -s
-Способ 2. Выполнение только позитивных тестов. Находясь в корневой директории проекта выполнить команду pytest -k 'TestChangingDataInsideYourAccountPositive' -v -s
-Способ 3. Выполнение только негативных тестов. Находясь в корневой директории проекта выполнить команду pytest -k 'TestChangingDataInsideYourAccountNegative' -v -s
+Способ 2. Выполнение только позитивных тестов. Находясь в корневой директории проекта выполнить команду pytest -k 'TestChangingDataInsideYourAccountPositive' -v -s \
+Способ 3. Выполнение только негативных тестов. Находясь в корневой директории проекта выполнить команду pytest -k 'TestChangingDataInsideYourAccountNegative' -v -s \
 Способ 4. По кнопке Run на класс или отдельную функцию из PyCharm или Aqua 
 
 ##### Запуск тестов в модуле test_create_account.py
