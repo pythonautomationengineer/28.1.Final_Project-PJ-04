@@ -17,7 +17,7 @@ class FakePerson:
     first_name_word_endings = {'ов', 'ев', 'ёв', 'ин', 'ич', 'на', 'ва', 'ия', 'са', 'ра', 'та', 'вь', 'да', 'ья', 'га',
                                'ла', 'оя', 'фа', 'ея', 'ор', 'ка', 'ца', 'ия', 'ль', 'ма', 'ея', 'а', 'вь', 'ь'}
     patronymic_name_word_ending = {'ич'}
-    last_name_word_endings = {'ов', 'ев', 'ёв', 'ин'}
+    last_name_word_endings = {'ов'}
     operators = ['790', '791', '792', '795']  # несколько валидных операторов
 
     @staticmethod
