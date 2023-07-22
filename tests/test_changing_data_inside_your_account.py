@@ -1,7 +1,6 @@
 import pytest
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-
 from Common_actions.changing_data_inside_your_account_action_helpers import ChangingDataInsideYourAccount as Cd
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
@@ -25,7 +24,7 @@ class TestChangingDataInsideYourAccountPositive:
                                f' горячие клавиши'
                                f' данных ОС')
     def test_adding_a_patronymic(browser):
-        """Добавление отчества внутри личного кабинета"""
+        """Добавление/изменение отчества внутри личного кабинета"""
 
         # Открытие url
         Cd.get_link(browser)
