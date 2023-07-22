@@ -1,5 +1,4 @@
 import pytest
-
 from Common_actions.login_to_personal_account_action_helpers import LoginHelpers
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
@@ -153,7 +152,7 @@ class TestLoginNegative:
     @staticmethod
     @pytest.mark.xfail
     def test_email_tabs(browser):
-        """Смена таба выбора аутентификации при вводе почты в табе "Телефон"""
+        """Смена таба выбора аутентификации при вводе почты в табе 'Телефон'"""
         # Открытие сайта
         LoginHelpers.current_url(browser)
 
