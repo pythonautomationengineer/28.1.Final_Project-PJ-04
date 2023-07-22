@@ -1,6 +1,5 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-
 from Common_actions.create_account_action_helpers import ActionHelpers
 from Сlasses.CSS_Selectors import Selectors
 from Сlasses.Data_for_Assert import DataForAssert
@@ -167,7 +166,7 @@ class TestCreateAccountNegative:
         # Клик по кнопке "Зарегистрироваться"
         ActionHelpers.register_button_click(browser)
 
-        # Явное ожидание текста Пароль должен содержать хотя бы одну заглавную букву" под полем 'Пароль'"
+        # Явное ожидание текста "Пароль должен содержать хотя бы одну заглавную букву" под полем 'Пароль'"
         WebDriverWait(browser, StabilityTimes.explicit_wait)
         text_information = browser.find_element(*Selectors.TEXT_REFERENCE_OF_PASSWORD)
 
