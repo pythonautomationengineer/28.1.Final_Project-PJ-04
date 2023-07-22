@@ -1,6 +1,5 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-
 from credentials import email_valid
 from credentials import link, unused_phone, password
 from Сlasses.CSS_Selectors import Selectors
