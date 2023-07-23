@@ -39,6 +39,8 @@ getpass
 [Доступны по ссылке](https://docs.google.com/spreadsheets/d/1R30jt8g9oHbXQ8hR1CeaHae3VhmGYdo9Al4J4S5tJjg/edit?usp=sharing) \
 _Переключение между листами внизу документа_ 
 
+### Версия интерпретатора
+3.11.4
 
 ### Используемые IDE
 PyCharm Community 2023.1.4 \
