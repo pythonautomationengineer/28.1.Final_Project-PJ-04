@@ -4,7 +4,7 @@
 *.pyc
 *.TAG
 venv
-Сlasses/__pycache__/
+classes/__pycache__/
 /__pycache__/
 .fleet
 .idea

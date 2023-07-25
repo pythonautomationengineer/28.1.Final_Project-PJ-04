@@ -1,8 +1,8 @@
 import pytest
-from Common_actions.login_to_personal_account_action_helpers import LoginHelpers
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.Stability import Captcha
+from common_actions.login_to_personal_account_action_helpers import LoginHelpers
+from classes.css_selectors import Selectors
+from classes.data_for_assert import DataForAssert
+from classes.stability import Captcha
 
 
 class TestLoginPositive:

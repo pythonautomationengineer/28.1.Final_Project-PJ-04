@@ -1,12 +1,12 @@
 import pytest
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-from Common_actions.changing_data_inside_your_account_action_helpers import ChangingDataInsideYourAccount as Cd
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.FakePerson import FakePerson
-from Сlasses.Stability import OSandUserName, HotKeys
-from Сlasses.Stability import StabilityTimes, Captcha
+from common_actions.changing_data_inside_your_account_action_helpers import ChangingDataInsideYourAccount as Cd
+from classes.css_selectors import Selectors
+from classes.data_for_assert import DataForAssert
+from classes.fake_person import FakePerson
+from classes.stability import OSandUserName, HotKeys
+from classes.stability import StabilityTimes, Captcha
 
 
 class TestChangingDataInsideYourAccountPositive:

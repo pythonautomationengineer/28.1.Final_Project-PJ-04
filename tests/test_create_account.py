@@ -1,9 +1,9 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-from Common_actions.create_account_action_helpers import ActionHelpers
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Data_for_Assert import DataForAssert
-from Сlasses.Stability import StabilityTimes
+from common_actions.create_account_action_helpers import ActionHelpers
+from classes.css_selectors import Selectors
+from classes.data_for_assert import DataForAssert
+from classes.stability import StabilityTimes
 
 
 class TestCreateAccountNegative:

@@ -1,8 +1,8 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from credentials import link, password, email_valid
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Stability import StabilityTimes
+from classes.css_selectors import Selectors
+from classes.stability import StabilityTimes
 
 
 class ChangingDataInsideYourAccount:

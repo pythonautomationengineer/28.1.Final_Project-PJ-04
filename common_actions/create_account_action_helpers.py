@@ -2,11 +2,11 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from credentials import email_valid
 from credentials import link, unused_phone, password
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Characters_generator import CharactersGenerator
-from Сlasses.Characters_generator import CharactersGenerator as Cg
-from Сlasses.FakePerson import FakePerson
-from Сlasses.Stability import StabilityTimes
+from classes.css_selectors import Selectors
+from classes.characters_generator import CharactersGenerator
+from classes.characters_generator import CharactersGenerator as Cg
+from classes.fake_person import FakePerson
+from classes.stability import StabilityTimes
 
 
 class ActionHelpers:

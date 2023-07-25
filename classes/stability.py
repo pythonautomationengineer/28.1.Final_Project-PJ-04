@@ -1,8 +1,8 @@
 import platform
 import getpass
 from selenium.common.exceptions import NoSuchElementException
-from Сlasses.CSS_Selectors import Selectors
-from Сlasses.Data_for_Assert import DataForAssert
+from classes.css_selectors import Selectors
+from classes.data_for_assert import DataForAssert
 from selenium.webdriver import Keys
 
 
